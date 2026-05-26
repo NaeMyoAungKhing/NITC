@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-hanken: "Hanken Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom glow utilities simulating interactive pathways */
+.ai-glow {
+  box-shadow: 0 0 15px rgba(134, 149, 221, 0.4);
+}
+
+.ai-glow-pulse {
+  animation: ai-glow-pulse 3s infinite alternate;
+}
+
+@keyframes ai-glow-pulse {
+  0% {
+    box-shadow: 0 0 8px rgba(134, 149, 221, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(0, 169, 179, 0.6);
+  }
+}
+
+/* Base custom scrollbar for dashboard list areas */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(118, 118, 129, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(118, 118, 129, 0.4);
+}

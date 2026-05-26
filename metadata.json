@@ -1,0 +1,6 @@
+{
+  "name": "NITC Mission Control",
+  "description": "The advanced, high-fidelity school management system tailored for Nova International Technology College (NITC), featuring customized portals for students and guardians.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

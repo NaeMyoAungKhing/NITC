@@ -5,6 +5,10 @@
 
 import { Student, ModuleStatus, ActiveMission, FlightPlanItem, Announcement } from "./types";
 
+// Real NITC faculty headshots (New School Design Group, "Team members").
+import xie from "./assets/team/xie.png";
+import nae from "./assets/team/nae.png";
+
 export const STUDENTS: Student[] = [
   {
     id: "archer",
@@ -85,7 +89,7 @@ export const ACTIVE_MISSIONS: ActiveMission[] = [
     competencyCount: 4,
     practicalCount: 2,
     instructor: "Xie Zihao (School Principal)",
-    instructorAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+    instructorAvatar: xie,
     syncedPercentage: 78,
     description: "Synchronize AI neural pathing with hydraulic actuators in Lab 4B.",
     status: "active"
@@ -100,7 +104,7 @@ export const ACTIVE_MISSIONS: ActiveMission[] = [
     competencyCount: 4,
     practicalCount: 2,
     instructor: "Nae Myo (Vice School Principal)",
-    instructorAvatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+    instructorAvatar: nae,
     syncedPercentage: 42,
     description: "Implementing zero-trust protocols in hybrid environments.",
     status: "active"

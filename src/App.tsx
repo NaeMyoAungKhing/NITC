@@ -14,9 +14,10 @@ import ContactFacultyModal from "./components/ContactFacultyModal";
 import Navbar from "./components/Navbar";
 import FooterNav from "./components/FooterNav";
 
-// High-fidelity image URLs built using standard absolute bundler paths
-const CAMPUS_BG = "/src/assets/images/nitc_campus_1779805442158.png";
-const ROBOTICS_LAB_IMG = "/src/assets/images/robotics_lab_1779805462376.png";
+// Imported as modules so Vite fingerprints them and they resolve in production builds
+// (the previous "/src/..." string paths only worked in the dev server).
+import CAMPUS_BG from "./assets/images/nitc_campus_1779805442158.png";
+import ROBOTICS_LAB_IMG from "./assets/images/robotics_lab_1779805462376.png";
 
 export default function App() {
   const [currentMode, setCurrentMode] = useState<PortalMode>("onboarding");
@@ -79,10 +80,4 @@ export default function App() {
 
       {/* Popovers & Floating Modals */}
       <ContactFacultyModal 
-        isOpen={isContactOpen} 
-        onClose={() => setIsContactOpen(false)}
-      />
-
-    </div>
-  );
-}
+        isOpen={is

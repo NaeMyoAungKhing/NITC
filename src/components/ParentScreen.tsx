@@ -306,7 +306,7 @@ export default function ParentScreen({ onOpenContact }: ParentScreenProps) {
 
               <div className="flex items-center gap-2 text-cyan-600 font-mono text-[10px] font-black tracking-wider mb-2">
                 <ShieldCheck className="w-4 h-4" />
-                <span>NITC BURSER // STATEMENT VERIFIED</span>
+                <span>NITC BURSAR // STATEMENT VERIFIED</span>
               </div>
 
               <h3 className="font-hanken text-2xl font-extrabold text-[#001456] tracking-tight mb-4">

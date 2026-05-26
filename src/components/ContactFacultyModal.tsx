@@ -9,20 +9,30 @@ import { X, Send, ShieldAlert, CheckCircle2, Loader2, Award } from "lucide-react
 import { CONTACT_PRESETS } from "../mockData";
 import NITCLogo from "./NITCLogo";
 
+// Real NITC faculty headshots (New School Design Group, "Team members").
+import xie from "../assets/team/xie.png";
+import nae from "../assets/team/nae.png";
+import wu from "../assets/team/wu.png";
+import zeng from "../assets/team/zeng.png";
+import nang from "../assets/team/nang.png";
+import ramraj from "../assets/team/ramraj.png";
+import purinat from "../assets/team/purinat.png";
+import jia from "../assets/team/jia.png";
+
 interface ContactFacultyModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 const INSTRUCTORS = [
-  { id: "xie", name: "Xie Zihao", role: "School Principal", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
-  { id: "nae", name: "Nae Myo", role: "Vice School Principal", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" },
-  { id: "wu", name: "Wu Yue", role: "Finance Department", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
-  { id: "zeng", name: "Zeng Xiaohuizi", role: "HR Department", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" },
-  { id: "nang", name: "Nang Yay Seng Naw", role: "Student Affairs", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80" },
-  { id: "ramraj", name: "Ramraj Toopjam", role: "International Collaboration", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80" },
-  { id: "purinat", name: "Purinat Rattanapun", role: "Marketing Team", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80" },
-  { id: "jia", name: "Jia Ping", role: "Academic Department", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80" }
+  { id: "xie", name: "Xie Zihao", role: "School Principal", avatar: xie },
+  { id: "nae", name: "Nae Myo", role: "Vice School Principal", avatar: nae },
+  { id: "wu", name: "Wu Yue", role: "Finance Department", avatar: wu },
+  { id: "zeng", name: "Zeng Xiaohuizi", role: "HR Department", avatar: zeng },
+  { id: "nang", name: "Nang Yay Seng Naw", role: "Student Affairs", avatar: nang },
+  { id: "ramraj", name: "Ramraj Toopjam", role: "International Collaboration", avatar: ramraj },
+  { id: "purinat", name: "Purinat Rattanapun", role: "Marketing Team", avatar: purinat },
+  { id: "jia", name: "Jia Ping", role: "Academic Department", avatar: jia }
 ];
 
 export default function ContactFacultyModal({ isOpen, onClose }: ContactFacultyModalProps) {

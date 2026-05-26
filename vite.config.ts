@@ -3,8 +3,11 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
 
-export default defineConfig(() => {
+export default defineConfig(({command}) => {
   return {
+    // On a production build (GitHub Pages) the app is served from /NITC/.
+    // Local dev and AI Studio keep the root base so nothing breaks there.
+    base: command === 'build' ? '/NITC/' : '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

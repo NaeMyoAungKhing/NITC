@@ -11,6 +11,7 @@ import MissionsScreen from "./components/MissionsScreen";
 import ProgressScreen from "./components/ProgressScreen";
 import ParentScreen from "./components/ParentScreen";
 import ContactFacultyModal from "./components/ContactFacultyModal";
+import InfoModal, { InfoView } from "./components/InfoModal";
 import Navbar from "./components/Navbar";
 import FooterNav from "./components/FooterNav";
 
@@ -22,6 +23,7 @@ import ROBOTICS_LAB_IMG from "./assets/images/robotics_lab_1779805462376.png";
 export default function App() {
   const [currentMode, setCurrentMode] = useState<PortalMode>("onboarding");
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [infoView, setInfoView] = useState<InfoView | null>(null);
 
   const handleSetMode = (mode: PortalMode) => {
     setCurrentMode(mode);
@@ -47,6 +49,7 @@ export default function App() {
           <LandingScreen
             onSelectMode={handleSetMode}
             backgroundImageUrl={CAMPUS_BG}
+            onOpenInfo={setInfoView}
           />
         )}
 
@@ -76,12 +79,19 @@ export default function App() {
       <FooterNav
         currentMode={currentMode}
         onSetMode={handleSetMode}
+        onOpenInfo={setInfoView}
       />
 
       {/* Popovers & Floating Modals */}
       <ContactFacultyModal
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
+      />
+
+      <InfoModal
+        view={infoView}
+        onClose={() => setInfoView(null)}
+        onSetView={setInfoView}
       />
 
     </div>

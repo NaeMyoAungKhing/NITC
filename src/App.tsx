@@ -33,25 +33,25 @@ export default function App() {
 
   return (
     <div id="app-root-container" className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      
+
       {/* Top Banner Navigation */}
-      <Navbar 
-        currentMode={currentMode} 
-        onSetMode={handleSetMode} 
+      <Navbar
+        currentMode={currentMode}
+        onSetMode={handleSetMode}
         onOpenContact={() => setIsContactOpen(true)}
       />
 
       {/* Main Core Screen Content */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6 md:py-8">
         {currentMode === "onboarding" && (
-          <LandingScreen 
-            onSelectMode={handleSetMode} 
+          <LandingScreen
+            onSelectMode={handleSetMode}
             backgroundImageUrl={CAMPUS_BG}
           />
         )}
 
         {currentMode === "dashboard" && (
-          <DashboardScreen 
+          <DashboardScreen
             onNavigateToMissions={selectDashboardMissions}
             roboticsLabImage={ROBOTICS_LAB_IMG}
           />
@@ -66,18 +66,24 @@ export default function App() {
         )}
 
         {currentMode === "parent" && (
-          <ParentScreen 
+          <ParentScreen
             onOpenContact={() => setIsContactOpen(true)}
           />
         )}
       </main>
 
       {/* Bottom Sticky Tab controller */}
-      <FooterNav 
-        currentMode={currentMode} 
+      <FooterNav
+        currentMode={currentMode}
         onSetMode={handleSetMode}
       />
 
       {/* Popovers & Floating Modals */}
-      <ContactFacultyModal 
-        isOpen={is
+      <ContactFacultyModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+      />
+
+    </div>
+  );
+}

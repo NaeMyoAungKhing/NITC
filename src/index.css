@@ -32,4 +32,37 @@
   }
 }
 
-/* Screen ent
+/* Screen entrance animation (used when switching portal modes) */
+.animate-fade-in {
+  animation: fade-in 0.45s ease-out both;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Base custom scrollbar for dashboard list areas */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(118, 118, 129, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(118, 118, 129, 0.4);
+}

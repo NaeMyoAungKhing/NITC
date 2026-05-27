@@ -19,9 +19,9 @@ export default function Navbar({ currentMode, onSetMode, onOpenContact }: Navbar
   const [notificationsRead, setNotificationsRead] = useState(false);
 
   const mockLogs = [
-    { id: 1, text: "Robotics Practical benchmark dataset updated in Lab 4B.", type: "system" },
-    { id: 2, text: "Financial Statement due offset to OCT 15 by Bursar.", type: "finance" },
-    { id: 3, text: "Instructor Vance approved your Theory Module 04 pathing.", type: "grade" }
+    { id: 1, text: "New materials added to Mobile App Development (Lab B).", type: "course" },
+    { id: 2, text: "Tuition payment due 15 Oct.", type: "finance" },
+    { id: 3, text: "Mr. Xie approved your AI for Business Applications submission.", type: "grade" }
   ];
 
   if (currentMode === "onboarding") return null;
@@ -47,7 +47,7 @@ export default function Navbar({ currentMode, onSetMode, onOpenContact }: Navbar
             className="hidden sm:flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-[#001456] border border-slate-200 rounded-lg px-3 py-1.5 font-mono text-[9px] font-bold uppercase transition-all tracking-wider cursor-pointer"
           >
             <Mail className="w-3.5 h-3.5" />
-            <span>Brief Faculty</span>
+            <span>Contact Teacher</span>
           </button>
 
           {/* Core Notification System */}
@@ -71,7 +71,7 @@ export default function Navbar({ currentMode, onSetMode, onOpenContact }: Navbar
               <div className="absolute right-0 mt-3 w-80 bg-white border border-slate-100 rounded-xl shadow-2xl p-4 z-50">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
                   <span className="font-mono text-[10px] font-extrabold text-[#001456] tracking-wider uppercase">
-                    SYSTEM INCIDENT LOGS
+                    NOTIFICATIONS
                   </span>
                   <button 
                     onClick={() => setShowNotifications(false)}
@@ -88,7 +88,7 @@ export default function Navbar({ currentMode, onSetMode, onOpenContact }: Navbar
                         {log.text}
                       </p>
                       <span className="block font-mono text-[8.5px] uppercase font-bold text-cyan-600 mt-1">
-                        LOG TYPE: {log.type}
+                        {log.type}
                       </span>
                     </div>
                   ))}
@@ -101,7 +101,7 @@ export default function Navbar({ currentMode, onSetMode, onOpenContact }: Navbar
                   }}
                   className="w-full mt-4 bg-slate-50 hover:bg-[#001456]/5 text-slate-600 hover:text-[#001456] text-center font-mono text-[9px] py-1.5 rounded-lg border border-slate-200 tracking-wider font-bold transition-all"
                 >
-                  ACKNOWLEDGE ALL EVENTS
+                  MARK ALL AS READ
                 </button>
               </div>
             )}

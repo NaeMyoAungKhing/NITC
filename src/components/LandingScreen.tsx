@@ -10,6 +10,7 @@ import { PortalMode } from "../types";
 
 import NITCLogo from "./NITCLogo";
 import { CyberGridBackground } from "./NITCBackground";
+import campusVideo from "../assets/campus-video.mp4";
 
 interface LandingScreenProps {
   onSelectMode: (mode: PortalMode) => void;
@@ -22,12 +23,18 @@ export default function LandingScreen({ onSelectMode, backgroundImageUrl }: Land
 
   return (
     <div id="landing-screen-container" className="relative min-h-[92vh] flex items-center justify-center p-4 overflow-hidden select-none">
-      {/* Background with blur and darken filter */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center transition-all duration-700" 
-        style={{ backgroundImage: `url(${bgImg})` }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#051025]/95 via-[#000d36]/85 to-[#051025]/98" />
+      {/* NITC campus background video (poster falls back to the campus image) */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster={bgImg}
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src={campusVideo} type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#051025]/88 via-[#000d36]/78 to-[#051025]/96" />
 
       {/* Official Blue Starburst Cyber Texture Overlay */}
       <CyberGridBackground theme="dark" />

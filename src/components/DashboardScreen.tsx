@@ -52,14 +52,14 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
       >
         <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-cyan-600 tracking-wider">
           <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          OPERATIONAL STATUS: ACTIVE
+          ENROLLMENT STATUS: ACTIVE
         </div>
         <h2 className="font-hanken text-4xl font-extrabold text-[#001456] tracking-tight">
           Hello, Student.
         </h2>
         <p className="font-sans text-xs text-slate-500 leading-relaxed max-w-xl">
-          Welcome back to NITC Mission Control. Your trajectory is currently optimal. Complete your 
-          <span className="text-[#001456] font-semibold"> Robotics Lab Integration</span> mission to maintain 4-4-2 curriculum compliance.
+          Welcome back to your NITC learning portal. You're on track this term. Continue your
+          <span className="text-[#001456] font-semibold"> AI for Business Applications</span> course to stay on top of your 4-4-2 curriculum.
         </p>
       </motion.div>
 
@@ -71,7 +71,7 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
           <div>
             <div className="flex items-center justify-between mb-6">
               <h3 className="font-hanken text-2xl font-bold text-[#001456]">
-                Curriculum Matrix
+                My Curriculum
               </h3>
               <span className="font-mono text-[10px] text-cyan-700 bg-cyan-50 border border-cyan-100 px-2.5 py-1 rounded-full font-bold">
                 4-4-2 SYSTEM
@@ -114,7 +114,7 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
                           {m.stability}%
                         </span>
                         <span className="block text-[8px] font-mono text-slate-400 font-bold uppercase tracking-wide">
-                          STABILITY
+                          PROGRESS
                         </span>
                       </div>
                     </div>
@@ -159,19 +159,19 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
           </div>
 
           <div className="absolute top-4 right-4 bg-red-500/25 border border-red-500/40 text-[9px] font-mono font-black text-rose-300 px-2.5 py-1 rounded tracking-[0.1em] ai-glow uppercase">
-            PRIORITY ALPHA
+            CORE COURSE
           </div>
 
           <div className="relative z-10 p-6 text-white space-y-4">
             <div>
               <span className="font-mono text-[9px] tracking-widest text-cyan-400/90 font-bold block uppercase mb-1">
-                Active Benchmark Project
+                Featured Course
               </span>
               <h4 className="font-hanken text-3xl font-extrabold tracking-tight text-white leading-tight">
-                Robotics Lab Integration
+                AI for Business Applications
               </h4>
               <p className="text-xs text-slate-200/90 font-sans leading-relaxed mt-2">
-                Synchronize AI neural pathing algorithms with hydraulic arm actuators inside Lab 4B mainframe.
+                Use AI tools and data analysis to solve a real business challenge with an industry partner.
               </p>
             </div>
 
@@ -185,7 +185,7 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
                     onClick={handleLaunchMission}
                     className="w-full bg-white text-[#001456] hover:bg-slate-50 font-mono font-extrabold text-xs tracking-wider py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 group cursor-pointer transition-all duration-300"
                   >
-                    <span>LAUNCH ACTIVE MISSION</span>
+                    <span>OPEN COURSE</span>
                     <Rocket className="w-4.5 h-4.5 text-[#001456] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
                   </motion.button>
                 ) : (
@@ -196,8 +196,8 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
                   >
                     <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 animate-bounce" />
                     <div>
-                      <span className="block font-mono font-bold text-white uppercase tracking-wider">Mission Synchronized</span>
-                      <span className="block text-[10px] text-emerald-300/80">Calibration stream active in Lab 4B.</span>
+                      <span className="block font-mono font-bold text-white uppercase tracking-wider">Course Opened</span>
+                      <span className="block text-[10px] text-emerald-300/80">You're enrolled and ready to begin.</span>
                     </div>
                   </motion.div>
                 )}
@@ -215,10 +215,10 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h3 className="font-hanken text-2xl font-bold text-[#001456] tracking-tight">
-              Weekly Flight Plan
+              Weekly Timetable
             </h3>
             <p className="font-sans text-xs text-slate-400">
-              Scheduled academic sorties, lecture series, and practical calibration windows.
+              Your classes, lectures, and practical sessions for the week.
             </p>
           </div>
 
@@ -231,7 +231,7 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
               <ChevronLeft className="w-4 h-4" />
             </button>
             <span className="font-mono text-xs text-[#001456] font-bold px-3 py-1 bg-slate-100 rounded-md">
-              {currentWeekOffset === 0 ? "CURRENT PHASE" : `PHASE ${currentWeekOffset > 0 ? "+" : ""}${currentWeekOffset}`}
+              {currentWeekOffset === 0 ? "THIS WEEK" : `WEEK ${currentWeekOffset > 0 ? "+" : ""}${currentWeekOffset}`}
             </span>
             <button 
               onClick={() => setCurrentWeekOffset(p => p + 1)}
@@ -276,7 +276,7 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
                       {fp.title}
                     </span>
                     <span className="block font-sans text-xs text-slate-400">
-                      {fp.isBreak ? "Mission Rest Block" : "Theoretical calibration series"}
+                      {fp.isBreak ? "No class scheduled" : "Scheduled class"}
                     </span>
                   </div>
                 </div>

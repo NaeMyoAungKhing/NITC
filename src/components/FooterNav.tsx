@@ -26,10 +26,10 @@ export default function FooterNav({ currentMode, onSetMode }: FooterNavProps) {
       label: "DASHBOARD", 
       icon: <LayoutGrid className="w-5 h-5 shrink-0" /> 
     },
-    { 
-      mode: "missions", 
-      label: "MISSIONS", 
-      icon: <Rocket className="w-5 h-5 shrink-0" /> 
+    {
+      mode: "missions",
+      label: "COURSES",
+      icon: <Rocket className="w-5 h-5 shrink-0" />
     },
     { 
       mode: "progress", 
@@ -155,11 +155,11 @@ export default function FooterNav({ currentMode, onSetMode }: FooterNavProps) {
               {/* Card option 4 */}
               <a 
                 href="#support"
-                onClick={(e) => { e.preventDefault(); alert("NITC mainframe technical support line is online: tech-support@nitc.edu"); }}
+                onClick={(e) => { e.preventDefault(); alert("NITC IT support: tech-support@nitc.edu"); }}
                 className="p-3 bg-slate-50 border border-slate-100 hover:border-indigo-500/50 rounded-xl block text-left transition-all"
               >
                 <HelpCircle className="w-4 h-4 text-indigo-500 mb-1.5" />
-                <span className="block font-sans text-xs font-bold text-[#001456]">Mission Control Support</span>
+                <span className="block font-sans text-xs font-bold text-[#001456]">Help &amp; IT Support</span>
                 <span className="block font-mono text-[8.5px] text-slate-400 mt-0.5 uppercase">TECH HELPDESK</span>
               </a>
             </div>

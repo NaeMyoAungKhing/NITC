@@ -27,10 +27,10 @@ export default function ProgressScreen() {
       {/* Title block */}
       <div className="flex flex-col gap-1.5">
         <h2 className="font-hanken text-4xl font-extrabold text-[#001456] tracking-tight">
-          Trajectory Analytics
+          My Progress
         </h2>
         <p className="font-sans text-xs text-slate-500 max-w-lg leading-relaxed">
-          Monitor your cumulative curriculum integration. Adjust the live estimators below to compute projected grade outcomes.
+          Track your progress across the 4-4-2 curriculum. Adjust the sliders below to see your projected grade.
         </p>
       </div>
 
@@ -117,10 +117,10 @@ export default function ProgressScreen() {
         <div className="md:col-span-7 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-6">
             <span className="font-mono text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase">
-              4-4-2 CURRICULUM ARCHITECTURE MAP
+              4-4-2 CURRICULUM PROGRESS
             </span>
             <span className="font-mono text-[9px] text-cyan-600 font-black">
-              SYNC STATUS: 82% OK
+              OVERALL: 82%
             </span>
           </div>
 
@@ -132,7 +132,7 @@ export default function ProgressScreen() {
                 <span className="font-mono text-[10px] font-extrabold text-slate-700 tracking-wider">THEORY UNITS (4/4 COMPLETE)</span>
               </div>
               <div className="grid grid-cols-4 gap-2">
-                {["T1: Logic", "T2: Systems", "T3: Algos", "T4: Networks"].map((n, i) => (
+                {["Computational Maths", "Intro to IT", "Digital Business", "Basic Labor Law"].map((n, i) => (
                   <div key={i} className="bg-indigo-50 border border-indigo-100/50 p-2.5 rounded-lg text-center">
                     <span className="block font-mono text-[9px] text-indigo-500 font-bold uppercase">MODULE 0{i+1}</span>
                     <span className="block font-sans text-xs font-bold text-[#001456] truncate">{n}</span>
@@ -145,10 +145,10 @@ export default function ProgressScreen() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Sliders className="w-4 h-4 text-cyan-500" />
-                <span className="font-mono text-[10px] font-extrabold text-slate-700 tracking-wider">COMPETENCY PHASES (2/4 SYNCED)</span>
+                <span className="font-mono text-[10px] font-extrabold text-slate-700 tracking-wider">COMPETENCY (2/4 COMPLETE)</span>
               </div>
               <div className="grid grid-cols-4 gap-2">
-                {["C1: Applied", "C2: Scalable", "C3: Docker", "C4: Cluster"].map((n, i) => {
+                {["Business Language", "Data Analysis", "AI for Business", "Global Strategy"].map((n, i) => {
                   const isDone = i < 2;
                   return (
                     <div 
@@ -171,10 +171,10 @@ export default function ProgressScreen() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Zap className="w-4 h-4 text-emerald-500" />
-                <span className="font-mono text-[10px] font-extrabold text-slate-700 tracking-wider">PRACTICAL INTEGRATION TRACKS (1/2 ACTIVE)</span>
+                <span className="font-mono text-[10px] font-extrabold text-slate-700 tracking-wider">PRACTICAL (1/2 ACTIVE)</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                {["P1: Robotics Lab Integration", "P2: Space Command Orbital Lab"].map((n, i) => {
+                {["Web & Mobile Development", "Industry Internship"].map((n, i) => {
                   const isActive = i === 0;
                   return (
                     <div 

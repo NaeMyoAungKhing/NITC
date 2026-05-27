@@ -55,7 +55,7 @@ export default function ParentScreen({ onOpenContact }: ParentScreenProps) {
           </div>
           <div>
             <span className="font-mono text-[10px] text-cyan-600 font-bold tracking-widest block uppercase leading-none mb-1">
-              GUARDIAN WORKSPACE // SECURITY ENCRYPTED
+PARENT / GUARDIAN PORTAL
             </span>
             <h2 className="font-hanken text-3xl font-extrabold text-[#001456] tracking-tight leading-none">
               Guardian Dashboard
@@ -184,7 +184,7 @@ export default function ParentScreen({ onOpenContact }: ParentScreenProps) {
                 FINANCIAL STATUS
               </span>
               <span className="font-mono text-[9px] text-cyan-600 tracking-wider font-semibold">
-                STMT // 2024-Q3
+STATEMENT // TERM 1
               </span>
             </div>
 
@@ -306,7 +306,7 @@ export default function ParentScreen({ onOpenContact }: ParentScreenProps) {
 
               <div className="flex items-center gap-2 text-cyan-600 font-mono text-[10px] font-black tracking-wider mb-2">
                 <ShieldCheck className="w-4 h-4" />
-                <span>NITC BURSAR // STATEMENT VERIFIED</span>
+                <span>NITC FINANCE OFFICE // VERIFIED</span>
               </div>
 
               <h3 className="font-hanken text-2xl font-extrabold text-[#001456] tracking-tight mb-4">
@@ -322,32 +322,32 @@ export default function ParentScreen({ onOpenContact }: ParentScreenProps) {
 
                 <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="block font-semibold text-slate-800">Advanced Cybernetics Curriculum Fee</span>
-                    <span className="block text-[10px] text-slate-400">Term 2026 Phase A</span>
+                    <span className="block font-semibold text-slate-800">Tuition Fee</span>
+                    <span className="block text-[10px] text-slate-400">Term 1</span>
                   </div>
                   <span className="font-mono text-slate-800 font-bold">+$1,800.00</span>
                 </div>
 
                 <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="block font-semibold text-slate-800">Laboratory Actuator Licensing</span>
-                    <span className="block text-[10px] text-slate-400">Physical Lab Equipment Access</span>
+                    <span className="block font-semibold text-slate-800">Lab &amp; Equipment Fee</span>
+                    <span className="block text-[10px] text-slate-400">Maker space &amp; lab access</span>
                   </div>
                   <span className="font-mono text-slate-800 font-bold">+$400.00</span>
                 </div>
 
                 <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="block font-semibold text-slate-800">NITC Campus Network Connection Fee</span>
-                    <span className="block text-[10px] text-slate-400">Secure VPN & AI Workstation node</span>
+                    <span className="block font-semibold text-slate-800">Technology Fee</span>
+                    <span className="block text-[10px] text-slate-400">Campus network &amp; devices</span>
                   </div>
                   <span className="font-mono text-slate-800 font-bold">+$250.00</span>
                 </div>
 
                 <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="block font-semibold text-emerald-600">Scholarship Trajectory Grant</span>
-                    <span className="block text-[10px] text-slate-400">Academic Merit Incentive</span>
+                    <span className="block font-semibold text-emerald-600">Scholarship Grant</span>
+                    <span className="block text-[10px] text-slate-400">Academic merit award</span>
                   </div>
                   <span className="font-mono text-emerald-600 font-bold">-$450.00</span>
                 </div>

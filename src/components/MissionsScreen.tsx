@@ -43,10 +43,10 @@ export default function MissionsScreen() {
       {/* Page Title & Concept Headers */}
       <div className="flex flex-col gap-1.5">
         <h2 className="font-hanken text-4xl font-extrabold text-[#001456] tracking-tight">
-          Workspace Central
+          My Courses
         </h2>
         <p className="font-sans text-xs text-slate-500 max-w-lg leading-relaxed">
-          Command your training curriculum, trigger active benchmark missions, and monitor sync status with live NITC faculty.
+          Browse your courses, track your progress, and stay connected with your NITC teachers.
         </p>
       </div>
 
@@ -57,7 +57,7 @@ export default function MissionsScreen() {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="FIND MISSION MATERIALS OR CODE (e.g. 02, Quantum)..."
+          placeholder="Search courses (e.g. AI, Data, Marketing)..."
           className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded-xl py-4.5 pl-12 pr-4 font-mono text-xs tracking-wider outline-none text-[#001456] transition-all placeholder:text-slate-400 shadow-sm"
         />
         {searchQuery && (
@@ -74,16 +74,16 @@ export default function MissionsScreen() {
       <div>
         <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-6">
           <span className="font-mono text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase">
-            ACTIVE MISSIONS // CURRENT PHASE
+            ACTIVE COURSES // THIS TERM
           </span>
           <span className="font-mono text-[10px] text-cyan-600 font-semibold uppercase">
-            {filteredMissions.length} PROJECTS FOUND
+            {filteredMissions.length} COURSES
           </span>
         </div>
 
         {filteredMissions.length === 0 ? (
           <div className="text-center py-12 bg-slate-50 border border-dashed border-slate-200 rounded-xl font-sans text-xs text-slate-400">
-            No active missions matching "{searchQuery}" detected. Try searching another term in the mainframe.
+            No courses match "{searchQuery}". Try a different search.
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6">
@@ -152,7 +152,7 @@ export default function MissionsScreen() {
                         referrerPolicy="no-referrer"
                       />
                       <div>
-                        <span className="block text-[8px] font-mono text-slate-400 font-bold tracking-wider">INSTRUCTOR // BENCHMARK</span>
+                        <span className="block text-[8px] font-mono text-slate-400 font-bold tracking-wider">INSTRUCTOR</span>
                         <span className="block font-sans text-xs font-extrabold text-[#001456]">{mission.instructor}</span>
                       </div>
                     </div>
@@ -160,8 +160,8 @@ export default function MissionsScreen() {
                     {/* Progress details */}
                     <div className="flex-1 max-w-xs">
                       <div className="flex items-center justify-between text-[10px] font-mono mb-1.5">
-                        <span className="text-slate-400 font-bold uppercase">SYNCHRONIZATION RATE</span>
-                        <span className="text-[#001456] font-black">{mission.syncedPercentage}% SYNCED</span>
+                        <span className="text-slate-400 font-bold uppercase">COURSE PROGRESS</span>
+                        <span className="text-[#001456] font-black">{mission.syncedPercentage}% COMPLETE</span>
                       </div>
                       <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                         <motion.div 
@@ -182,12 +182,12 @@ export default function MissionsScreen() {
                         {resumingId === mission.id ? (
                           <>
                             <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                            <span>SYNCING...</span>
+                            <span>LOADING...</span>
                           </>
                         ) : (
                           <>
                             <Play className="w-3 h-3 fill-current" />
-                            <span>RESUME MISSION</span>
+                            <span>CONTINUE COURSE</span>
                           </>
                         )}
                       </button>
@@ -206,13 +206,13 @@ export default function MissionsScreen() {
       <div>
         <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-6">
           <span className="font-mono text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase">
-            UPCOMING MODULES // QUEUED
+            UPCOMING COURSES
           </span>
-          <button 
-            onClick={() => alert("Curriculum tree maps are managed by NITC Registrar. Full view unlocked upon completing active missions.")}
+          <button
+            onClick={() => alert("The full course catalogue is managed by the NITC academic office.")}
             className="font-mono text-[10px] text-cyan-600 hover:text-[#001456] font-extrabold tracking-wider uppercase transition-colors cursor-pointer"
           >
-            VIEW FULL MAP
+            VIEW ALL
           </button>
         </div>
 

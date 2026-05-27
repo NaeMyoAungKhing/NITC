@@ -46,7 +46,7 @@ export default function ContactFacultyModal({ isOpen, onClose }: ContactFacultyM
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) {
-      setErrorText("Telemetry field empty. Please draft a message for the NITC faculty.");
+      setErrorText("Please write a message before sending.");
       return;
     }
     setErrorText("");
@@ -105,20 +105,20 @@ export default function ContactFacultyModal({ isOpen, onClose }: ContactFacultyM
                   <div className="h-4.5 w-4.5 shrink-0">
                     <NITCLogo variant="light-icon" />
                   </div>
-                  <span>FACULTY RELATIONS MATRIX // SECURE</span>
+                  <span>CONTACT A TEACHER</span>
                 </div>
                 <h3 className="font-hanken text-2xl font-extrabold text-[#001456] tracking-tight">
-                  Brief Faculty Member
+                  Contact a Teacher
                 </h3>
                 <p className="font-sans text-xs text-slate-400">
-                  Transmit secure briefings or general course performance queries to certified NITC instructors.
+                  Send a message to your NITC teachers about a course or your progress.
                 </p>
               </div>
 
               {/* Selector 1: Tutors list */}
               <div className="space-y-2">
                 <label className="block text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider">
-                  Select Certified Instructor
+                  Select Teacher
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-[160px] overflow-y-auto pr-1.5 scrollbar-thin scrollbar-thumb-slate-200">
                   {INSTRUCTORS.map((inst) => {
@@ -156,7 +156,7 @@ export default function ContactFacultyModal({ isOpen, onClose }: ContactFacultyM
               {/* Selector 2: Topic Choice */}
               <div className="space-y-1.5">
                 <label className="block text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider">
-                  Query Classification Area
+                  Topic
                 </label>
                 <select 
                   value={subject}
@@ -172,13 +172,13 @@ export default function ContactFacultyModal({ isOpen, onClose }: ContactFacultyM
               {/* Input Area: Message */}
               <div className="space-y-1.5">
                 <label className="block text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider">
-                  Briefing Stream Transmission Text
+                  Your Message
                 </label>
                 <textarea 
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
-                  placeholder="Draft academic query or feedback loop details..."
+                  placeholder="Write your message..."
                   className="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs outline-none focus:border-[#001456] font-sans leading-relaxed text-[#001456]"
                 />
               </div>
@@ -207,12 +207,12 @@ export default function ContactFacultyModal({ isOpen, onClose }: ContactFacultyM
                   {loading ? (
                     <>
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      <span>TRANSMITTING...</span>
+                      <span>SENDING...</span>
                     </>
                   ) : (
                     <>
                       <Send className="w-3.5 h-3.5" />
-                      <span>SEND STREAM</span>
+                      <span>SEND MESSAGE</span>
                     </>
                   )}
                 </button>
@@ -231,16 +231,16 @@ export default function ContactFacultyModal({ isOpen, onClose }: ContactFacultyM
               </div>
               <div>
                 <h4 className="font-hanken text-2xl font-black text-[#001456]">
-                  Briefing Stream Established
+                  Message Sent
                 </h4>
                 <p className="font-sans text-xs text-slate-400 mt-1 max-w-sm mx-auto">
-                  Your academic inquiry has been decrypted and queued in the recipient certified instructor's terminal inbox.
+                  Your message has been sent to the teacher and will be answered soon.
                 </p>
               </div>
 
               <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-left max-w-sm mx-auto text-[11px] font-mono space-y-1">
-                <div className="flex justify-between"><span className="text-slate-400">Stream Ref ID:</span><span className="font-bold text-[#001456]">NITC-STR-#{Math.floor(Math.random() * 90000 + 10000)}</span></div>
-                <div className="flex justify-between"><span className="text-slate-400">Stream Status:</span><span className="text-emerald-600 font-bold">QUEUED FOR REVIEW</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Reference:</span><span className="font-bold text-[#001456]">NITC-MSG-#{Math.floor(Math.random() * 90000 + 10000)}</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Status:</span><span className="text-emerald-600 font-bold">SENT</span></div>
                 <div className="flex justify-between"><span className="text-slate-400">Response Speed:</span><span className="text-slate-500 font-bold">~ 12 HOURS</span></div>
               </div>
 
@@ -248,7 +248,7 @@ export default function ContactFacultyModal({ isOpen, onClose }: ContactFacultyM
                 onClick={handleReset}
                 className="mx-auto w-40 bg-[#001456] hover:bg-[#12287c] text-white font-mono text-[10px] tracking-widest font-black py-3 rounded-lg text-center cursor-pointer transition-all uppercase block"
               >
-                RETURN HOME
+DONE
               </button>
             </motion.div>
           )}

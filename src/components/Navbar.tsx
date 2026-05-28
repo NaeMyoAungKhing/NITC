@@ -36,6 +36,7 @@ export default function Navbar({ currentMode, onSetMode, onOpenContact }: Navbar
           className="flex items-center gap-2 cursor-pointer group hover:opacity-85 transition-opacity"
         >
           <NITCLogo variant="light-full" />
+          <span className="px-1.5 py-0.5 rounded bg-amber-50 border border-amber-200 text-amber-600 font-mono text-[8px] font-bold tracking-wider">BETA</span>
         </div>
 
         {/* Right Side: Faculty, Notifications & Reset */}

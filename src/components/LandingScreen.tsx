@@ -76,7 +76,10 @@ export default function LandingScreen({ onSelectMode, backgroundImageUrl, onOpen
 
             <div className="flex flex-col items-center justify-center mb-7 border-b border-white/5 pb-5">
               <NITCLogo variant="full" />
-              <div className="mt-3 px-2 py-0.5 bg-cyan-400/10 border border-cyan-400/20 rounded font-mono text-[8px] text-cyan-400 tracking-wider">V4.4.2_SECURE // ONLINE</div>
+              <div className="mt-3 flex items-center gap-1.5">
+                <div className="px-2 py-0.5 bg-cyan-400/10 border border-cyan-400/20 rounded font-mono text-[8px] text-cyan-400 tracking-wider">V4.4.2_SECURE // ONLINE</div>
+                <div className="px-2 py-0.5 bg-amber-400/15 border border-amber-400/40 rounded font-mono text-[8px] text-amber-300 tracking-wider font-bold">BETA</div>
+              </div>
             </div>
 
             <div className="flex items-center gap-1.5 mb-2 font-mono text-xs font-semibold text-cyan-400 tracking-wider">

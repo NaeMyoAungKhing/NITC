@@ -6,7 +6,7 @@
 import React, { useState } from "react";
 import {
   LayoutGrid, Rocket, TrendingUp, Users, Menu, X, Landmark,
-  Map, PhoneCall, BookOpen, ExternalLink, HelpCircle, Info, Newspaper, Megaphone
+  Map, PhoneCall, BookOpen, ExternalLink, HelpCircle, Info, Newspaper, Megaphone, Palette
 } from "lucide-react";
 import { PortalMode } from "../types";
 import { InfoView } from "./InfoModal";
@@ -120,7 +120,7 @@ export default function FooterNav({ currentMode, onSetMode, onOpenInfo }: Footer
               </button>
             </div>
 
-            {/* App info shortcuts: Manual / About / News / Announcements */}
+            {/* App info shortcuts: Manual / About / Brand / News / Announcements */}
             <div className="grid grid-cols-2 gap-2 mb-3">
               <button onClick={() => openInfo("manual")} className="flex items-center gap-2 p-2.5 bg-[#001456]/5 border border-[#001456]/10 hover:border-[#001456]/40 rounded-xl text-left transition-all cursor-pointer">
                 <BookOpen className="w-4 h-4 text-[#001456] shrink-0" />
@@ -130,11 +130,15 @@ export default function FooterNav({ currentMode, onSetMode, onOpenInfo }: Footer
                 <Info className="w-4 h-4 text-[#001456] shrink-0" />
                 <span className="font-mono text-[9px] font-bold text-[#001456] uppercase">About NITC</span>
               </button>
+              <button onClick={() => openInfo("brand")} className="flex items-center gap-2 p-2.5 bg-cyan-50 border border-cyan-200 hover:border-cyan-500/60 rounded-xl text-left transition-all cursor-pointer">
+                <Palette className="w-4 h-4 text-cyan-600 shrink-0" />
+                <span className="font-mono text-[9px] font-bold text-cyan-700 uppercase">Brand Guideline</span>
+              </button>
               <button onClick={() => openInfo("news")} className="flex items-center gap-2 p-2.5 bg-[#001456]/5 border border-[#001456]/10 hover:border-[#001456]/40 rounded-xl text-left transition-all cursor-pointer">
                 <Newspaper className="w-4 h-4 text-[#001456] shrink-0" />
                 <span className="font-mono text-[9px] font-bold text-[#001456] uppercase">News</span>
               </button>
-              <button onClick={() => openInfo("announcements")} className="flex items-center gap-2 p-2.5 bg-[#001456]/5 border border-[#001456]/10 hover:border-[#001456]/40 rounded-xl text-left transition-all cursor-pointer">
+              <button onClick={() => openInfo("announcements")} className="flex items-center gap-2 p-2.5 bg-[#001456]/5 border border-[#001456]/10 hover:border-[#001456]/40 rounded-xl text-left transition-all cursor-pointer col-span-2">
                 <Megaphone className="w-4 h-4 text-[#001456] shrink-0" />
                 <span className="font-mono text-[9px] font-bold text-[#001456] uppercase">Announcements</span>
               </button>

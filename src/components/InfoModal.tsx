@@ -8,11 +8,15 @@ import { motion } from "motion/react";
 import {
   X, BookOpen, Info, Newspaper, LogIn, LayoutGrid, Rocket, TrendingUp,
   Users, Mail, GraduationCap, Cpu, HeartHandshake, Home, Briefcase, ExternalLink,
-  Megaphone, Calendar, ClipboardCheck, Wallet
+  Megaphone, Calendar, ClipboardCheck, Wallet, Palette, Star, Type, Sparkles
 } from "lucide-react";
 import NITCLogo from "./NITCLogo";
+import LogoBlue from "../assets/brand/logo-blue.png";
+import BrandmarkBlue from "../assets/brand/brandmark-blue.png";
+import Pattern1Blue from "../assets/brand/pattern1-blue.png";
+import Pattern2Blue from "../assets/brand/pattern2-blue.png";
 
-export type InfoView = "manual" | "about" | "news" | "announcements";
+export type InfoView = "manual" | "about" | "news" | "announcements" | "brand";
 
 interface InfoModalProps {
   view: InfoView | null;
@@ -78,8 +82,21 @@ const ANNOUNCEMENTS = [
 const TABS: { id: InfoView; label: string; icon: React.ReactNode }[] = [
   { id: "manual", label: "Manual", icon: <BookOpen className="w-4 h-4" /> },
   { id: "about", label: "About", icon: <Info className="w-4 h-4" /> },
+  { id: "brand", label: "Brand", icon: <Palette className="w-4 h-4" /> },
   { id: "news", label: "News", icon: <Newspaper className="w-4 h-4" /> },
   { id: "announcements", label: "Announcements", icon: <Megaphone className="w-4 h-4" /> },
+];
+
+const BRAND_COLORS = [
+  { name: "Cosmic Cobalt", hex: "#2B338D", rgb: "43, 51, 141", cmyk: "70, 64, 0, 45", textOn: "white" },
+  { name: "Flower White", hex: "#F8F3F0", rgb: "248, 243, 240", cmyk: "0, 2, 2, 33", textOn: "dark" },
+  { name: "Attractive Black", hex: "#231F20", rgb: "35, 31, 32", cmyk: "0, 11, 9, 86", textOn: "white" },
+];
+
+const LOGO_CONCEPTS = [
+  { icon: <Star className="w-4 h-4" />, title: "Star — Innovation", text: "Represents the \"NOVA\" — brilliance, ambition and breakthrough thinking." },
+  { icon: <Sparkles className="w-4 h-4" />, title: "Dynamic N — Breaking Boundaries", text: "The N cuts through the square, reflecting innovation and the courage to break limits." },
+  { icon: <BookOpen className="w-4 h-4" />, title: "Book — Foundation", text: "Stability, knowledge and the strong academic foundation of NITC." },
 ];
 
 export default function InfoModal({ view, onClose, onSetView }: InfoModalProps) {
@@ -170,6 +187,125 @@ export default function InfoModal({ view, onClose, onSetView }: InfoModalProps) 
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+          )}
+
+          {view === "brand" && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-hanken text-2xl font-extrabold text-[#001456] mb-1">NITC Brand Guideline</h3>
+                <p className="font-sans text-xs text-slate-400">
+                  The official identity system of Nova International Technology College — logo, colour, typography and pattern.
+                  <span className="block mt-0.5 text-slate-300">Brand system by Jamesstus.</span>
+                </p>
+              </div>
+
+              {/* Logo & concept */}
+              <div className="bg-gradient-to-br from-[#001456] to-[#12287c] rounded-xl p-5 text-white">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-mono text-[10px] text-cyan-300 font-bold tracking-widest uppercase">Section 2.0 · Logo</span>
+                  <span className="font-mono text-[9px] text-cyan-300/60">"Innovation Start Here"</span>
+                </div>
+                <div className="grid grid-cols-3 gap-3 mb-4">
+                  <div className="col-span-2 bg-white/95 rounded-lg p-4 flex items-center justify-center">
+                    <img src={LogoBlue} alt="NITC primary logo" className="max-h-16 w-auto object-contain" />
+                  </div>
+                  <div className="bg-white/95 rounded-lg p-4 flex items-center justify-center">
+                    <img src={BrandmarkBlue} alt="NITC brand mark" className="max-h-16 w-auto object-contain" />
+                  </div>
+                </div>
+                <p className="font-sans text-xs text-cyan-50/90 leading-relaxed">
+                  The primary logo represents innovation, progress and academic excellence at the intersection of technology and business.
+                  The brand mark — a dynamic "N" cutting through a square with a rising star — symbolises brilliance, ambition and the breaking of boundaries.
+                </p>
+              </div>
+
+              {/* Logo concept breakdown */}
+              <div>
+                <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Section 2.5 · Logo Concept</span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3">
+                  {LOGO_CONCEPTS.map((c, i) => (
+                    <div key={i} className="bg-slate-50 border border-slate-100 rounded-xl p-3">
+                      <div className="w-8 h-8 rounded-lg bg-[#001456]/5 text-[#001456] border border-[#001456]/10 flex items-center justify-center mb-2">{c.icon}</div>
+                      <span className="block font-sans text-xs font-extrabold text-[#001456] leading-tight">{c.title}</span>
+                      <span className="block font-sans text-[11px] text-slate-500 leading-relaxed mt-1">{c.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Brand colour palette */}
+              <div>
+                <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Section 3.1 · Brand Colour</span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+                  {BRAND_COLORS.map((c, i) => (
+                    <div key={i} className="rounded-xl overflow-hidden border border-slate-100 shadow-sm">
+                      <div className="h-20 flex items-end p-3" style={{ backgroundColor: c.hex }}>
+                        <span className={`font-mono text-[10px] font-bold tracking-wider ${c.textOn === "white" ? "text-white/90" : "text-[#231F20]"}`}>
+                          {c.hex}
+                        </span>
+                      </div>
+                      <div className="p-3 bg-white">
+                        <span className="block font-sans text-sm font-extrabold text-[#001456]">{c.name}</span>
+                        <span className="block font-mono text-[10px] text-slate-500 mt-1">RGB · {c.rgb}</span>
+                        <span className="block font-mono text-[10px] text-slate-500">CMYK · {c.cmyk}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Typography */}
+              <div>
+                <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Section 4.1 · Typography</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                  <div className="bg-slate-50 border border-slate-100 rounded-xl p-4">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <Type className="w-3.5 h-3.5 text-cyan-600" />
+                      <span className="font-mono text-[9px] text-slate-400 font-bold tracking-widest uppercase">Headline</span>
+                    </div>
+                    <span className="block font-hanken text-xl font-extrabold text-[#001456]">Audiowide</span>
+                    <span className="block font-mono text-[10px] text-slate-500 mt-1">ABCDEFGHIJKL · 1234567890</span>
+                    <span className="block font-sans text-[11px] text-slate-500 italic mt-1.5">"Innovation Start Here"</span>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-100 rounded-xl p-4">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <Type className="w-3.5 h-3.5 text-cyan-600" />
+                      <span className="font-mono text-[9px] text-slate-400 font-bold tracking-widest uppercase">Secondary</span>
+                    </div>
+                    <span className="block font-hanken text-xl font-extrabold text-[#001456]">Saira</span>
+                    <span className="block font-mono text-[10px] text-slate-500 mt-1">ABCDEFGHIJKL · 1234567890</span>
+                    <span className="block font-sans text-[11px] text-slate-500 italic mt-1.5">"Innovation Start Here"</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Brand pattern */}
+              <div>
+                <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Section 5.1 · Brand Pattern</span>
+                <div className="grid grid-cols-2 gap-3 mt-3">
+                  <div className="rounded-xl border border-slate-100 bg-white p-3 flex items-center justify-center">
+                    <img src={Pattern1Blue} alt="NITC brand pattern 1" className="w-full h-28 object-contain" />
+                  </div>
+                  <div className="rounded-xl border border-slate-100 bg-white p-3 flex items-center justify-center">
+                    <img src={Pattern2Blue} alt="NITC brand pattern 2" className="w-full h-28 object-contain" />
+                  </div>
+                </div>
+                <p className="font-sans text-[11px] text-slate-400 mt-2 leading-relaxed">
+                  Brand patterns extend the identity onto stationery, campus signage and digital surfaces — built from the brand mark's geometry.
+                </p>
+              </div>
+
+              {/* Usage rules summary */}
+              <div className="bg-slate-50 border border-slate-100 rounded-xl p-4">
+                <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Usage Rules</span>
+                <ul className="mt-2 space-y-1.5 font-sans text-xs text-slate-600">
+                  <li className="flex gap-2"><span className="text-[#001456] font-bold">·</span> Maintain a minimum clear space of <span className="font-mono">X</span> around the logo at all times.</li>
+                  <li className="flex gap-2"><span className="text-[#001456] font-bold">·</span> Do not reproduce the logo at a height smaller than <span className="font-mono">5 mm</span>.</li>
+                  <li className="flex gap-2"><span className="text-[#001456] font-bold">·</span> Use only the approved palette — Cosmic Cobalt, Flower White and Attractive Black.</li>
+                  <li className="flex gap-2"><span className="text-[#001456] font-bold">·</span> Do not stretch, recolour, rotate or add effects to the logo.</li>
+                </ul>
               </div>
             </div>
           )}

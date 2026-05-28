@@ -5,26 +5,41 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { 
+import {
   Search, BookOpen, Layers, Zap, Rocket, ChevronRight, Play, Loader2, ArrowRight
 } from "lucide-react";
-import { ACTIVE_MISSIONS, UPCOMING_MODULES } from "../mockData";
+import { ACTIVE_MISSIONS, UPCOMING_MODULES, COURSE_DETAILS } from "../mockData";
 import { ActiveMission } from "../types";
+import CourseDetailScreen from "./CourseDetailScreen";
 
 export default function MissionsScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [missions, setMissions] = useState<ActiveMission[]>(ACTIVE_MISSIONS);
   const [resumingId, setResumingId] = useState<string | null>(null);
+  const [openCourseId, setOpenCourseId] = useState<string | null>(null);
 
   const handleResumeMission = (id: string) => {
     setResumingId(id);
     setTimeout(() => {
-      setMissions(prev => 
+      setMissions(prev =>
         prev.map(m => m.id === id ? { ...m, syncedPercentage: Math.min(m.syncedPercentage + 6, 100) } : m)
       );
       setResumingId(null);
-    }, 1500);
+      setOpenCourseId(id);
+    }, 700);
   };
+
+  const handleOpenCourse = (id: string) => setOpenCourseId(id);
+
+  // If a course detail is open and we have data for it, render that view.
+  if (openCourseId && COURSE_DETAILS[openCourseId]) {
+    return (
+      <CourseDetailScreen
+        course={COURSE_DETAILS[openCourseId]}
+        onBack={() => setOpenCourseId(null)}
+      />
+    );
+  }
 
   const filteredMissions = missions.filter(m => 
     m.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -91,10 +106,11 @@ export default function MissionsScreen() {
               const isFirst = mission.id === "mission-1";
               
               return (
-                <motion.div 
+                <motion.div
                   key={mission.id}
                   layoutId={mission.id}
-                  className="bg-white border border-slate-100 rounded-2xl p-6 shadow-[0_4px_24px_rgba(26,43,109,0.03)] transition-all relative overflow-hidden"
+                  onClick={() => handleOpenCourse(mission.id)}
+                  className="bg-white border border-slate-100 rounded-2xl p-6 shadow-[0_4px_24px_rgba(26,43,109,0.03)] hover:border-cyan-500/40 hover:shadow-[0_8px_32px_rgba(26,43,109,0.08)] transition-all relative overflow-hidden cursor-pointer"
                 >
                   {/* Decorative glowing gradient borders */}
                   {isFirst && (
@@ -175,7 +191,7 @@ export default function MissionsScreen() {
                     {/* Resume CTA */}
                     <div className="shrink-0">
                       <button
-                        onClick={() => handleResumeMission(mission.id)}
+                        onClick={(e) => { e.stopPropagation(); handleResumeMission(mission.id); }}
                         disabled={resumingId !== null}
                         className="w-full sm:w-auto px-4 py-2.5 bg-[#001456] hover:bg-[#12287c] disabled:bg-slate-300 text-white font-mono text-[10px] tracking-widest font-extrabold rounded-lg flex items-center justify-center gap-2 cursor-pointer transition-all uppercase shadow-md active:scale-95"
                       >
@@ -223,10 +239,13 @@ export default function MissionsScreen() {
         ) : (
           <div className="space-y-3">
             {filteredUpcoming.map((item, index) => {
+              const previewId = `upcoming-${item.code}`;
+              const hasPreview = !!COURSE_DETAILS[previewId];
               return (
-                <div 
+                <div
                   key={item.code}
-                  className="bg-white border border-slate-100 rounded-xl p-4 flex items-center justify-between hover:bg-slate-50/50 transition-colors"
+                  onClick={() => hasPreview ? handleOpenCourse(previewId) : alert("Course preview not available yet.")}
+                  className="bg-white border border-slate-100 rounded-xl p-4 flex items-center justify-between hover:bg-slate-50/50 hover:border-cyan-500/40 transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
                     {/* Big Module Code badge */}

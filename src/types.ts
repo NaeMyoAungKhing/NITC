@@ -69,3 +69,88 @@ export interface Announcement {
 }
 
 export type PortalMode = "onboarding" | "dashboard" | "missions" | "progress" | "parent";
+
+// ---------- Mock LMS (course detail) ----------
+
+export type LessonKind = "video" | "reading" | "lab" | "discussion" | "quiz";
+
+export interface CourseLesson {
+  id: string;
+  kind: LessonKind;
+  title: string;
+  durationMin: number;
+  completed: boolean;
+}
+
+export interface CourseModule {
+  id: string;
+  week: number;
+  title: string;
+  summary: string;
+  lessons: CourseLesson[];
+}
+
+export type MaterialKind = "slides" | "reading" | "video" | "notebook" | "dataset" | "template";
+
+export interface CourseMaterial {
+  id: string;
+  kind: MaterialKind;
+  title: string;
+  source: string;
+  sizeOrLen: string;
+}
+
+export type AssignmentStatus = "submitted" | "in_progress" | "not_started" | "graded";
+
+export interface CourseAssignment {
+  id: string;
+  title: string;
+  brief: string;
+  dueDate: string;
+  weight: number; // percent of grade
+  status: AssignmentStatus;
+  grade?: string;
+}
+
+export interface CourseQuiz {
+  id: string;
+  title: string;
+  questions: number;
+  bestScore?: number; // 0-100
+  attempts: number;
+  attemptsAllowed: number;
+}
+
+export interface DiscussionPost {
+  id: string;
+  author: string;
+  role: "STUDENT" | "INSTRUCTOR" | "TA";
+  avatar?: string;
+  postedAgo: string;
+  message: string;
+  replies: number;
+  likes: number;
+}
+
+export interface CourseDetail {
+  id: string;
+  code: string;
+  title: string;
+  tagline: string;
+  description: string;
+  instructor: string;
+  instructorRole: string;
+  instructorAvatar: string;
+  meetingPattern: string;       // e.g. "Mon & Wed · 09:00–11:30"
+  location: string;             // "Room A" / "Online (Zoom)" / "Lab B"
+  credits: number;
+  termWeeks: number;
+  progress: number;             // 0-100
+  bannerGradient: string;       // tailwind classes for the hero
+  syllabusUrl?: string;
+  modules: CourseModule[];
+  materials: CourseMaterial[];
+  assignments: CourseAssignment[];
+  quizzes: CourseQuiz[];
+  discussion: DiscussionPost[];
+}

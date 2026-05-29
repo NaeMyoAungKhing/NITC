@@ -6,8 +6,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import {
-  X, GraduationCap, Settings, Users, Brain, Briefcase, Globe2, ShieldCheck,
-  Mail, Phone, MapPin, Clock, ArrowRight, ScrollText, SmilePlus, HandHelping
+  X, GraduationCap, Settings, Brain, Briefcase, Globe2, ShieldCheck, Mail
 } from "lucide-react";
 import NITCLogo from "./NITCLogo";
 
@@ -45,20 +44,15 @@ export const CATEGORIES: CategoryContent[] = [
     icon: <GraduationCap className="w-5 h-5" />,
     accent: "from-[#001456] to-[#293490]",
     bg: "bg-[#001456]/10 text-[#001456] border-[#001456]/15",
-    tagline: "Help to learn deeply and finish strong.",
+    tagline: "Helps students understand their lessons better.",
     intro:
-      "Tutoring, study coaching, writing support and assessment guidance — all built around the NITC 4-4-2 model (Theory 40% / Competency 40% / Practical 20%) so help is matched to the kind of skill you're building.",
+      "Academic support helps students understand their lessons better — like tutoring and extra help from teachers.",
     services: [
-      { title: "1-on-1 Tutoring",          text: "Book a peer or faculty tutor for any course — 30 min slots, in person or online." },
-      { title: "Writing & Presentation",   text: "Get a senior to review your report, deck or pitch before you submit." },
-      { title: "Maths Lab Drop-in",        text: "Open hours in Lab A every Tuesday and Friday afternoon." },
-      { title: "Assessment Coaching",      text: "Plan study weeks, practice tests and feedback before exam blocks." },
-      { title: "Academic Advising",        text: "Faculty mentors help you choose electives and capstone direction." },
+      { title: "Tutoring",            text: "Extra one-to-one help with a teacher or peer for any course." },
+      { title: "Extra Help Sessions", text: "Open hours where teachers help with questions and revision." },
     ],
     contacts: [
-      { icon: <Mail className="w-3.5 h-3.5" />,   label: "Email",   value: "academic-support@nitc.edu" },
-      { icon: <MapPin className="w-3.5 h-3.5" />, label: "Office",  value: "Innovation Hall · Level 2" },
-      { icon: <Clock className="w-3.5 h-3.5" />,  label: "Hours",   value: "Mon–Fri · 09:00–17:30" },
+      { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "academic-support@nitc.edu" },
     ],
   },
   {
@@ -68,21 +62,15 @@ export const CATEGORIES: CategoryContent[] = [
     icon: <Settings className="w-5 h-5" />,
     accent: "from-cyan-600 to-[#001456]",
     bg: "bg-cyan-50 text-cyan-800 border-cyan-200",
-    tagline: "Keep your tools working so learning never stops.",
+    tagline: "Helps students use computers and digital tools for learning.",
     intro:
-      "Device setup, account recovery, software licences, lab equipment, AV in classrooms and campus Wi-Fi. If a tool is in the way of learning, this team clears it.",
+      "Technology support helps students use computers and digital tools for learning.",
     services: [
-      { title: "Device & Login Help",      text: "Reset passwords, fix MFA, set up email, M365 / Google Workspace and the LMS." },
-      { title: "Software & Licences",      text: "Access free and discounted software — design, dev, data and AI tools." },
-      { title: "Lab Equipment",            text: "Borrow a laptop, camera or sensor kit from the Resource Library." },
-      { title: "Classroom AV",             text: "Same-day fix for projectors, screens and mics in any room." },
-      { title: "Cyber Safety",             text: "Phishing tips, secure backups and digital wellbeing workshops." },
+      { title: "Device & Login Help", text: "Help with school accounts, the LMS and student devices." },
+      { title: "Digital Tools",       text: "Access to the software and platforms students need for class." },
     ],
     contacts: [
-      { icon: <Mail className="w-3.5 h-3.5" />,   label: "Email",   value: "tech-support@nitc.edu" },
-      { icon: <Phone className="w-3.5 h-3.5" />,  label: "Hotline", value: "+66 (0) 2-555-NITC ext. 4" },
-      { icon: <MapPin className="w-3.5 h-3.5" />, label: "Helpdesk",value: "Lab B · IT Counter" },
-      { icon: <Clock className="w-3.5 h-3.5" />,  label: "Hours",   value: "Mon–Sat · 08:30–18:00" },
+      { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "tech-support@nitc.edu" },
     ],
   },
   {
@@ -92,21 +80,15 @@ export const CATEGORIES: CategoryContent[] = [
     icon: <Brain className="w-5 h-5" />,
     accent: "from-rose-500 to-[#001456]",
     bg: "bg-rose-50 text-rose-800 border-rose-200",
-    tagline: "Look after the mind that learns.",
+    tagline: "Helps students feel safe, happy, and confident in school.",
     intro:
-      "Confidential counselling, mental-health resources, stress-week support and peer-listening — for the moments when school is hard and when you just want to talk.",
+      "Social and emotional support helps students feel safe, happy, and confident in school.",
     services: [
-      { title: "Confidential Counselling", text: "Book a one-to-one session with a school counsellor. Always confidential." },
-      { title: "Peer Listeners",           text: "Trained senior students you can talk to over coffee — no booking required." },
-      { title: "Stress-Week Support",      text: "Drop-in pop-ups during mid-term and finals weeks — short, useful resets." },
-      { title: "Mindfulness & Movement",   text: "Weekly mindfulness, yoga and breathwork sessions in the campus garden." },
-      { title: "Crisis Pathway",           text: "24/7 referral pathway to partner clinics with parent / guardian loop-in." },
+      { title: "Counselling",     text: "A confidential space to talk when school feels hard." },
+      { title: "Peer Listeners",  text: "Trained senior students you can talk to about anything." },
     ],
     contacts: [
-      { icon: <Mail className="w-3.5 h-3.5" />,   label: "Email",        value: "wellbeing@nitc.edu" },
-      { icon: <Phone className="w-3.5 h-3.5" />,  label: "Care line",    value: "+66 (0) 2-555-NITC ext. 7" },
-      { icon: <MapPin className="w-3.5 h-3.5" />, label: "Wellness Hub", value: "Innovation Hall · Level 1, Quiet Room" },
-      { icon: <Clock className="w-3.5 h-3.5" />,  label: "Hours",        value: "Mon–Fri · 09:00–17:00" },
+      { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "wellbeing@nitc.edu" },
     ],
   },
   {
@@ -116,20 +98,15 @@ export const CATEGORIES: CategoryContent[] = [
     icon: <Globe2 className="w-5 h-5" />,
     accent: "from-emerald-600 to-[#001456]",
     bg: "bg-emerald-50 text-emerald-800 border-emerald-200",
-    tagline: "School is stronger when home and community are in the loop.",
+    tagline: "Working together with parents and the community to support students.",
     intro:
-      "Parent / guardian portal access, family events, community service partnerships and a translator-supported channel so language never gets in the way of staying involved.",
+      "Family and community support means we work together with parents and the community to support students.",
     services: [
-      { title: "Guardian Portal Access",   text: "Live view of grades, attendance and tuition — see Parent Portal in the app." },
-      { title: "Parent–Teacher Meetings",  text: "Three structured family conferences per year + open-door any time." },
-      { title: "Family Events",            text: "Innovation Showcase, capstone demos, cultural nights and open day." },
-      { title: "Community Service",        text: "NITC partners with 12+ Bangkok and Chiang Mai community organisations." },
-      { title: "Language Support",         text: "Translator-supported channel for parents in Thai, Burmese, Chinese and English." },
+      { title: "Parent–Teacher Meetings", text: "Regular check-ins between teachers and families." },
+      { title: "Community Partners",      text: "Local partners who work with the school to support students." },
     ],
     contacts: [
-      { icon: <Mail className="w-3.5 h-3.5" />,   label: "Email",      value: "family@nitc.edu" },
-      { icon: <Phone className="w-3.5 h-3.5" />,  label: "Family Line",value: "+66 (0) 2-555-NITC ext. 2" },
-      { icon: <MapPin className="w-3.5 h-3.5" />, label: "Front Desk", value: "Registrar Office · Main Entrance" },
+      { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "family@nitc.edu" },
     ],
   },
   {
@@ -139,20 +116,15 @@ export const CATEGORIES: CategoryContent[] = [
     icon: <Briefcase className="w-5 h-5" />,
     accent: "from-amber-600 to-[#001456]",
     bg: "bg-amber-50 text-amber-800 border-amber-200",
-    tagline: "Build the bridge from classroom to industry.",
+    tagline: "Helps students prepare for the future — jobs and real-world skills.",
     intro:
-      "Career advising, CV / portfolio workshops, interview practice, internships with NITC industry partners, and Onsite Career Training that turns Year-1 practicals into real workplace days.",
+      "Career and industry support helps students prepare for the future — like jobs and real-world skills.",
     services: [
-      { title: "Career Advising",          text: "One-to-one with a career coach — pathways, gap-year, university or startup tracks." },
-      { title: "Onsite Career Training",   text: "Compulsory Year-1 practical with a partner company. Real work, real mentor." },
-      { title: "CV & Portfolio Lab",       text: "Drop-in clinic to sharpen CVs, LinkedIn and portfolio sites." },
-      { title: "Interview Practice",       text: "Mock interviews with industry partners — feedback you can act on." },
-      { title: "Industry Partner Network", text: "Tech, business and creative partners across Bangkok and Chiang Mai." },
+      { title: "Career Guidance",       text: "Conversations about pathways after NITC — work, study or start-up." },
+      { title: "Onsite Career Training", text: "Real workplace experience with a partner company." },
     ],
     contacts: [
-      { icon: <Mail className="w-3.5 h-3.5" />,   label: "Email",      value: "careers@nitc.edu" },
-      { icon: <MapPin className="w-3.5 h-3.5" />, label: "Career Lab", value: "Innovation Hall · Level 3" },
-      { icon: <Clock className="w-3.5 h-3.5" />,  label: "Hours",      value: "Tue & Thu · 10:00–18:00" },
+      { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "careers@nitc.edu" },
     ],
   },
 ];
@@ -220,9 +192,9 @@ export default function SupportCentre({ open, onClose, onSetOpen }: SupportCentr
             <p className="font-sans text-sm text-slate-600 leading-relaxed mt-1.5">{active.intro}</p>
           </div>
 
-          {/* Services */}
+          {/* Examples */}
           <div>
-            <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Services available</span>
+            <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Some examples</span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3">
               {active.services.map((s, i) => (
                 <div key={i} className={`rounded-xl border p-3.5 ${active.bg}`}>
@@ -238,10 +210,10 @@ export default function SupportCentre({ open, onClose, onSetOpen }: SupportCentr
             </div>
           </div>
 
-          {/* Contacts */}
+          {/* Contact */}
           <div>
-            <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">How to reach this team</span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3">
+            <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Get in touch</span>
+            <div className="mt-3">
               {active.contacts.map((c, i) => (
                 <div key={i} className="flex items-center gap-3 bg-white border border-slate-100 rounded-xl p-3">
                   <div className="w-8 h-8 rounded-lg bg-slate-50 text-[#001456] border border-slate-100 flex items-center justify-center shrink-0">{c.icon}</div>
@@ -254,15 +226,13 @@ export default function SupportCentre({ open, onClose, onSetOpen }: SupportCentr
             </div>
           </div>
 
-          <button
-            onClick={() => alert(`This would open a service request for "${active.label}".\n\n(Demo placeholder — real form would submit to the team's queue.)`)}
-            className={`w-full bg-gradient-to-r ${active.accent} text-white font-mono text-xs tracking-widest font-extrabold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all uppercase shadow-md active:scale-95`}
-          >
-            <span>Request {active.shortLabel} Support</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          {/* Closing line */}
+          <p className="font-sans text-[11px] text-slate-400 text-center italic leading-relaxed">
+            All of these supports work together to help students succeed in school and in their future.
+          </p>
         </div>
       </motion.div>
     </div>
   );
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

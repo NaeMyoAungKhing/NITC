@@ -53,31 +53,50 @@ export const STUDENTS: Student[] = [
 export const INSTALLED_MODULES: ModuleStatus[] = [
   {
     id: "m1",
-    code: "01",
+    code: "40%",
     title: "THEORY",
-    subTitle: "Computational Maths, IT & Business Foundations",
+    subTitle: "Computational Maths · Digital Business Leadership · IT · Labor Law",
     category: "THEORY",
     stability: 75,
     iconType: "terminal"
   },
   {
     id: "m2",
-    code: "02",
+    code: "40%",
     title: "COMPETENCY",
-    subTitle: "Business Language, Data Analysis & AI",
+    subTitle: "Business Language 1&2 · Business Data Analysis 1&2",
     category: "COMPETENCY",
     stability: 40,
     iconType: "sliders"
   },
   {
     id: "m3",
-    code: "03",
+    code: "20%",
     title: "PRACTICAL",
-    subTitle: "Web & Mobile App Development",
+    subTitle: "Mobile App Development · Onsite Career Training (Compulsory)",
     category: "PRACTICAL",
-    stability: 90,
+    stability: 60,
     iconType: "lightning"
   }
+];
+
+// Year 1 curriculum (from official slide — Theory 40% / Competency 40% / Practical 20%).
+export interface CurriculumSubject {
+  code: string;
+  name: string;
+  pillar: "THEORY" | "COMPETENCY" | "PRACTICAL";
+  compulsory?: boolean;
+}
+
+export const CURRICULUM_YEAR_1: CurriculumSubject[] = [
+  { code: "TH-01", name: "Basic Computational Mathematics 1", pillar: "THEORY" },
+  { code: "TH-02", name: "Digital Business Leadership",        pillar: "THEORY" },
+  { code: "TH-03", name: "Introduction to Information Technology", pillar: "THEORY" },
+  { code: "TH-04", name: "Basic Labor Law",                    pillar: "THEORY" },
+  { code: "CP-01", name: "Basic Business Language 1 & 2",      pillar: "COMPETENCY" },
+  { code: "CP-02", name: "Basic Business Data Analysis 1 & 2", pillar: "COMPETENCY" },
+  { code: "PR-01", name: "Development of Basic Mobile Application", pillar: "PRACTICAL" },
+  { code: "PR-02", name: "Onsite Career Training",             pillar: "PRACTICAL", compulsory: true },
 ];
 
 export const ACTIVE_MISSIONS: ActiveMission[] = [

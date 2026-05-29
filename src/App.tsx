@@ -12,6 +12,7 @@ import ProgressScreen from "./components/ProgressScreen";
 import ParentScreen from "./components/ParentScreen";
 import ContactFacultyModal from "./components/ContactFacultyModal";
 import InfoModal, { InfoView } from "./components/InfoModal";
+import SupportCentre, { SupportCategory } from "./components/SupportCentre";
 import Navbar from "./components/Navbar";
 import FooterNav from "./components/FooterNav";
 
@@ -24,6 +25,7 @@ export default function App() {
   const [currentMode, setCurrentMode] = useState<PortalMode>("onboarding");
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [infoView, setInfoView] = useState<InfoView | null>(null);
+  const [supportOpen, setSupportOpen] = useState<SupportCategory | null>(null);
 
   const handleSetMode = (mode: PortalMode) => {
     setCurrentMode(mode);
@@ -57,6 +59,7 @@ export default function App() {
           <DashboardScreen
             onNavigateToMissions={selectDashboardMissions}
             roboticsLabImage={ROBOTICS_LAB_IMG}
+            onOpenSupport={setSupportOpen}
           />
         )}
 
@@ -92,6 +95,12 @@ export default function App() {
         view={infoView}
         onClose={() => setInfoView(null)}
         onSetView={setInfoView}
+      />
+
+      <SupportCentre
+        open={supportOpen}
+        onClose={() => setSupportOpen(null)}
+        onSetOpen={setSupportOpen}
       />
 
     </div>

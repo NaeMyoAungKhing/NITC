@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Search, BookOpen, Layers, Zap, Rocket, ChevronRight, Play, Loader2, ArrowRight
@@ -12,11 +12,24 @@ import { ACTIVE_MISSIONS, UPCOMING_MODULES, COURSE_DETAILS } from "../mockData";
 import { ActiveMission } from "../types";
 import CourseDetailScreen from "./CourseDetailScreen";
 
-export default function MissionsScreen() {
+interface MissionsScreenProps {
+  initialOpenCourseId?: string | null;
+  onClearInitial?: () => void;
+}
+
+export default function MissionsScreen({ initialOpenCourseId = null, onClearInitial }: MissionsScreenProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [missions, setMissions] = useState<ActiveMission[]>(ACTIVE_MISSIONS);
   const [resumingId, setResumingId] = useState<string | null>(null);
-  const [openCourseId, setOpenCourseId] = useState<string | null>(null);
+  const [openCourseId, setOpenCourseId] = useState<string | null>(initialOpenCourseId);
+
+  // If parent passes a deep-link id, open it once and clear the parent state.
+  useEffect(() => {
+    if (initialOpenCourseId) {
+      setOpenCourseId(initialOpenCourseId);
+      onClearInitial?.();
+    }
+  }, [initialOpenCourseId, onClearInitial]);
 
   const handleResumeMission = (id: string) => {
     setResumingId(id);

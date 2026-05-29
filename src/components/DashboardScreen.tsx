@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
-  Terminal, Sliders, Zap, ChevronLeft, ChevronRight, Rocket,
-  Calendar, CheckCircle2, Pin, ShieldAlert, Cpu, ArrowRight
+  Terminal, Sliders, Zap, ChevronLeft, ChevronRight, Rocket, ArrowRight
 } from "lucide-react";
 import { ModuleStatus, FlightPlanItem } from "../types";
 import { INSTALLED_MODULES, WEEKLY_FLIGHT_PLAN } from "../mockData";
@@ -16,27 +15,70 @@ import { GeometricTileBackground } from "./NITCBackground";
 import { CATEGORIES as SUPPORT_CATEGORIES, SupportCategory } from "./SupportCentre";
 
 interface DashboardScreenProps {
-  onNavigateToMissions: () => void;
+  onNavigateToMissions: (courseId?: string) => void;
   roboticsLabImage: string;
   onOpenSupport: (c: SupportCategory) => void;
 }
+
+interface FeaturedSlide {
+  courseId: string;
+  badge: string;
+  badgeAccent: string;
+  label: string;
+  title: string;
+  description: string;
+  overlay: string;
+}
+
+const FEATURED_SLIDES: FeaturedSlide[] = [
+  {
+    courseId: "mission-1",
+    badge: "CORE COURSE",
+    badgeAccent: "bg-red-500/25 border-red-500/40 text-rose-300",
+    label: "Featured Course",
+    title: "AI for Business Applications",
+    description: "Use AI tools and data analysis to solve a real business challenge with an industry partner.",
+    overlay: "from-[#001456]/85 via-[#001a40]/75 to-transparent",
+  },
+  {
+    courseId: "mission-2",
+    badge: "IN PROGRESS",
+    badgeAccent: "bg-emerald-500/25 border-emerald-500/40 text-emerald-300",
+    label: "Continue your work",
+    title: "Basic Business Data Analysis",
+    description: "Turn business datasets into clear, actionable insights — your dashboard assignment is due soon.",
+    overlay: "from-emerald-900/85 via-[#001a40]/75 to-transparent",
+  },
+  {
+    courseId: "upcoming-05",
+    badge: "OPENING SOON",
+    badgeAccent: "bg-amber-500/25 border-amber-500/40 text-amber-300",
+    label: "Next term · preview",
+    title: "Digital Marketing",
+    description: "Run real campaigns, read real numbers. Plan a small live campaign for a campus event.",
+    overlay: "from-amber-900/85 via-[#001a40]/75 to-transparent",
+  },
+];
 
 export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage, onOpenSupport }: DashboardScreenProps) {
   const [modules, setModules] = useState<ModuleStatus[]>(INSTALLED_MODULES);
   const [flightPlans, setFlightPlans] = useState<FlightPlanItem[]>(WEEKLY_FLIGHT_PLAN);
   const [currentWeekOffset, setCurrentWeekOffset] = useState(0);
-  const [missionLaunched, setMissionLaunched] = useState(false);
   const [activeFlightPlanId, setActiveFlightPlanId] = useState<string>("fp-1");
+  const [featuredIndex, setFeaturedIndex] = useState(0);
 
-  const handleLaunchMission = () => {
-    setMissionLaunched(true);
-    // Simulate mission startup or stability syncing
-    setTimeout(() => {
-      // Increase competency stability a bit upon launch as a cool Easter Egg
-      setModules(prev => 
-        prev.map(m => m.category === "COMPETENCY" ? { ...m, stability: Math.min(m.stability + 15, 100) } : m)
-      );
-    }, 2000);
+  // Auto-advance the featured-course carousel every 6 seconds.
+  useEffect(() => {
+    const id = setInterval(() => {
+      setFeaturedIndex(i => (i + 1) % FEATURED_SLIDES.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, []);
+
+  const activeSlide = FEATURED_SLIDES[featuredIndex];
+
+  const handleOpenFeatured = () => {
+    onNavigateToMissions(activeSlide.courseId);
   };
 
   const selectFlightDay = (id: string, isBreak?: boolean) => {
@@ -120,7 +162,11 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
                 const isPractical = m.category === "PRACTICAL";
 
                 return (
-                  <div key={m.id} className="bg-slate-50 hover:bg-slate-100/50 p-4 rounded-xl border border-slate-100 transition-all duration-300">
+                  <button
+                    key={m.id}
+                    onClick={() => onNavigateToMissions()}
+                    className="w-full text-left bg-slate-50 hover:bg-slate-100 hover:border-cyan-500/40 p-4 rounded-xl border border-slate-100 transition-all duration-300 cursor-pointer block"
+                  >
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3">
                         <div className={`w-9 h-9 rounded-lg flex items-center justify-center border ${
@@ -155,7 +201,7 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
 
                     {/* Progress Bar with glow for high stability */}
                     <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden relative">
-                      <motion.div 
+                      <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${m.stability}%` }}
                         transition={{ duration: 1, ease: "easeOut" }}
@@ -166,76 +212,100 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
                         }`}
                       />
                     </div>
-                  </div>
+                    <div className="flex items-center justify-end gap-1 mt-2 font-mono text-[9px] text-slate-400 tracking-wider">
+                      <span>VIEW COURSES</span><ArrowRight className="w-3 h-3" />
+                    </div>
+                  </button>
                 );
               })}
             </div>
           </div>
         </div>
 
-        {/* Highlighted Project Card (Robotics Lab Integration) - Right Side (5 cols) */}
+        {/* Featured Course Carousel - Right Side (5 cols) */}
         <div className="md:col-span-5 relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3] md:aspect-auto flex flex-col justify-end min-h-[340px]">
-          {/* Real Background generated image */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105"
+          {/* Background image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${roboticsLabImage || "https://picsum.photos/seed/cybernetics/800/600"})` }}
-            referrerPolicy="no-referrer"
           />
-          {/* Cybernetic Dark Mesh Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#000a29] via-[#051124]/75 to-transparent pointer-events-none" />
 
-          {/* Isometric Tile Grid Overlay */}
+          {/* Per-slide animated gradient overlay */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSlide.courseId + "-overlay"}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className={`absolute inset-0 bg-gradient-to-t pointer-events-none ${activeSlide.overlay}`}
+            />
+          </AnimatePresence>
+
           <GeometricTileBackground theme="dark" className="opacity-[0.12]" />
 
-          {/* Glowing tech grid and status labels inside cards */}
           <div className="absolute top-4 left-4 h-9 w-9 opacity-85">
             <NITCLogo variant="icon" />
           </div>
 
-          <div className="absolute top-4 right-4 bg-red-500/25 border border-red-500/40 text-[9px] font-mono font-black text-rose-300 px-2.5 py-1 rounded tracking-[0.1em] ai-glow uppercase">
-            CORE COURSE
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSlide.courseId + "-badge"}
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.35 }}
+              className={`absolute top-4 right-4 text-[9px] font-mono font-black px-2.5 py-1 rounded tracking-[0.1em] ai-glow uppercase border ${activeSlide.badgeAccent}`}
+            >
+              {activeSlide.badge}
+            </motion.div>
+          </AnimatePresence>
 
           <div className="relative z-10 p-6 text-white space-y-4">
-            <div>
-              <span className="font-mono text-[9px] tracking-widest text-cyan-400/90 font-bold block uppercase mb-1">
-                Featured Course
-              </span>
-              <h4 className="font-hanken text-3xl font-extrabold tracking-tight text-white leading-tight">
-                AI for Business Applications
-              </h4>
-              <p className="text-xs text-slate-200/90 font-sans leading-relaxed mt-2">
-                Use AI tools and data analysis to solve a real business challenge with an industry partner.
-              </p>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSlide.courseId + "-body"}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.4 }}
+              >
+                <span className="font-mono text-[9px] tracking-widest text-cyan-400/90 font-bold block uppercase mb-1">
+                  {activeSlide.label}
+                </span>
+                <h4 className="font-hanken text-3xl font-extrabold tracking-tight text-white leading-tight">
+                  {activeSlide.title}
+                </h4>
+                <p className="text-xs text-slate-200/90 font-sans leading-relaxed mt-2">
+                  {activeSlide.description}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
-            {/* Launch Action */}
-            <div className="pt-2">
-              <AnimatePresence mode="wait">
-                {!missionLaunched ? (
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={handleLaunchMission}
-                    className="w-full bg-white text-[#001456] hover:bg-slate-50 font-mono font-extrabold text-xs tracking-wider py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 group cursor-pointer transition-all duration-300"
-                  >
-                    <span>OPEN COURSE</span>
-                    <Rocket className="w-4.5 h-4.5 text-[#001456] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-                  </motion.button>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 p-3 rounded-xl flex items-center gap-3 text-xs"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 animate-bounce" />
-                    <div>
-                      <span className="block font-mono font-bold text-white uppercase tracking-wider">Course Opened</span>
-                      <span className="block text-[10px] text-emerald-300/80">You're enrolled and ready to begin.</span>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            <div className="pt-2 flex items-center gap-3">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleOpenFeatured}
+                className="flex-1 bg-white text-[#001456] hover:bg-slate-50 font-mono font-extrabold text-xs tracking-wider py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 group cursor-pointer transition-all duration-300"
+              >
+                <span>OPEN COURSE</span>
+                <Rocket className="w-4.5 h-4.5 text-[#001456] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+              </motion.button>
+
+              {/* Dot indicators */}
+              <div className="flex items-center gap-1.5">
+                {FEATURED_SLIDES.map((s, i) => (
+                  <button
+                    key={s.courseId}
+                    onClick={() => setFeaturedIndex(i)}
+                    aria-label={`Show slide ${i + 1}`}
+                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                      i === featuredIndex ? "w-6 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -296,54 +366,4 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
                     <span className="block font-mono text-[10px] text-slate-400 leading-none font-bold uppercase">
                       {fp.day}
                     </span>
-                    <span className="block font-hanken text-lg font-extrabold text-[#001456] leading-tight">
-                      {fp.dateNum + (currentWeekOffset * 7)}
-                    </span>
-                  </div>
-                  
-                  {/* Divider line in row */}
-                  <div className="h-8 w-[1px] bg-slate-200 hidden sm:block" />
-
-                  {/* Title and location badge */}
-                  <div>
-                    <span className={`block font-sans text-sm font-extrabold ${fp.isBreak ? "text-slate-400 line-through" : "text-slate-800"}`}>
-                      {fp.title}
-                    </span>
-                    <span className="block font-sans text-xs text-slate-400">
-                      {fp.isBreak ? "No class scheduled" : "Scheduled class"}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Sub details on right */}
-                <div className="flex items-center sm:text-right gap-3 mt-1 sm:mt-0">
-                  <div className="font-mono text-right">
-                    <span className="block text-xs font-bold text-[#001456]">
-                      {fp.timeRange}
-                    </span>
-                    {fp.location && (
-                      <span className="inline-block text-[9px] font-bold text-cyan-600 bg-cyan-50 border border-cyan-100 px-1.5 py-0.5 rounded uppercase leading-none mt-1">
-                        {fp.location}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Active/Linked visual feedback */}
-                  {!fp.isBreak && (
-                    <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
-                      isAct ? "bg-[#001456] border-[#001456] text-white" : "border-slate-300 bg-white"
-                    }`}>
-                      {isAct && <div className="w-1 h-1 bg-white rounded-full" />}
-                    </div>
-                  )}
-                </div>
-
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      
-    </div>
-  );
-}
+                    <span className=

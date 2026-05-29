@@ -8,13 +8,15 @@ import { motion } from "motion/react";
 import {
   X, BookOpen, Info, Newspaper, LogIn, LayoutGrid, Rocket, TrendingUp,
   Users, Mail, GraduationCap, Cpu, HeartHandshake, Home, Briefcase, ExternalLink,
-  Megaphone, Calendar, ClipboardCheck, Wallet, Palette, Star, Type, Sparkles, Layers
+  Megaphone, Calendar, ClipboardCheck, Wallet, Palette, Type, Layers
 } from "lucide-react";
 import NITCLogo from "./NITCLogo";
 import LogoBlue from "../assets/brand/logo-blue.png";
 import BrandmarkBlue from "../assets/brand/brandmark-blue.png";
 import Pattern1Blue from "../assets/brand/pattern1-blue.png";
 import Pattern2Blue from "../assets/brand/pattern2-blue.png";
+import LogoConceptArt from "../assets/brand/logo-concept.png";
+import LogoArchitectureArt from "../assets/brand/logo-architecture.png";
 import { CURRICULUM_YEAR_1 } from "../mockData";
 
 export type InfoView = "manual" | "about" | "news" | "announcements" | "brand" | "curriculum";
@@ -95,11 +97,6 @@ const BRAND_COLORS = [
   { name: "Attractive Black", hex: "#231F20", rgb: "35, 31, 32", cmyk: "0, 11, 9, 86", textOn: "white" },
 ];
 
-const LOGO_CONCEPTS = [
-  { icon: <Star className="w-4 h-4" />, title: "Star — Innovation", text: "Represents the \"NOVA\" — brilliance, ambition and breakthrough thinking." },
-  { icon: <Sparkles className="w-4 h-4" />, title: "Dynamic N — Breaking Boundaries", text: "The N cuts through the square, reflecting innovation and the courage to break limits." },
-  { icon: <BookOpen className="w-4 h-4" />, title: "Book — Foundation", text: "Stability, knowledge and the strong academic foundation of NITC." },
-];
 
 export default function InfoModal({ view, onClose, onSetView }: InfoModalProps) {
   if (!view) return null;
@@ -301,18 +298,32 @@ export default function InfoModal({ view, onClose, onSetView }: InfoModalProps) 
                 </p>
               </div>
 
-              {/* Logo concept breakdown */}
+              {/* Logo concept — actual artist page from the brand guideline */}
               <div>
-                <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Section 2.5 · Logo Concept</span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3">
-                  {LOGO_CONCEPTS.map((c, i) => (
-                    <div key={i} className="bg-slate-50 border border-slate-100 rounded-xl p-3">
-                      <div className="w-8 h-8 rounded-lg bg-[#001456]/5 text-[#001456] border border-[#001456]/10 flex items-center justify-center mb-2">{c.icon}</div>
-                      <span className="block font-sans text-xs font-extrabold text-[#001456] leading-tight">{c.title}</span>
-                      <span className="block font-sans text-[11px] text-slate-500 leading-relaxed mt-1">{c.text}</span>
-                    </div>
-                  ))}
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Section 2.5 · Logo Concept</span>
+                  <span className="font-mono text-[9px] text-cyan-700 bg-cyan-50 border border-cyan-100 px-2 py-0.5 rounded font-bold tracking-widest uppercase">Hand-drawn by artist</span>
                 </div>
+                <div className="rounded-xl border border-slate-100 bg-[#faf6f1] p-3">
+                  <img src={LogoConceptArt} alt="NITC logo concept — N for Nova, Star, Book, Stability, Innovation" className="w-full h-auto object-contain rounded-lg" />
+                </div>
+                <p className="font-sans text-[11px] text-slate-400 mt-2 leading-relaxed">
+                  The mark layers four ideas: <span className="text-[#001456] font-semibold">N for Nova</span>, a rising <span className="text-[#001456] font-semibold">star</span> for innovation, an open <span className="text-[#001456] font-semibold">book</span> as the academic foundation, and the bolt cutting through for forward momentum.
+                </p>
+              </div>
+
+              {/* Logo architecture — geometric construction grid */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Section 2.3 · Logo Architecture</span>
+                  <span className="font-mono text-[9px] text-cyan-700 bg-cyan-50 border border-cyan-100 px-2 py-0.5 rounded font-bold tracking-widest uppercase">Construction grid</span>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-[#faf6f1] p-3">
+                  <img src={LogoArchitectureArt} alt="NITC logo construction grid showing geometric proportions" className="w-full h-auto object-contain rounded-lg" />
+                </div>
+                <p className="font-sans text-[11px] text-slate-400 mt-2 leading-relaxed">
+                  Every proportion in the logo is defined on a strict X-unit grid — the same construction the artist used to draw the mark from scratch.
+                </p>
               </div>
 
               {/* Brand colour palette */}
@@ -418,23 +429,4 @@ export default function InfoModal({ view, onClose, onSetView }: InfoModalProps) 
               <p className="font-sans text-xs text-slate-400 mb-5">Official notices from NITC — events, assessments and finance.</p>
               <div className="space-y-3">
                 {ANNOUNCEMENTS.map((a, i) => (
-                  <div key={i} className="flex items-start gap-3 bg-slate-50 border border-slate-100 rounded-xl p-4">
-                    <div className="w-10 h-10 shrink-0 rounded-lg bg-cyan-50 text-cyan-600 border border-cyan-100 flex items-center justify-center">{a.icon}</div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-mono text-[9px] font-black text-[#001456] bg-[#001456]/5 border border-[#001456]/10 px-2 py-0.5 rounded uppercase tracking-wider">{a.tag}</span>
-                        <span className="font-mono text-[10px] text-slate-400">{a.when}</span>
-                      </div>
-                      <h4 className="font-hanken text-base font-extrabold text-[#001456] leading-snug">{a.title}</h4>
-                      <p className="font-sans text-xs text-slate-500 leading-relaxed mt-0.5">{a.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </motion.div>
-    </div>
-  );
-}
+                  <div key={i} className="flex items-start gap-3 bg-sla

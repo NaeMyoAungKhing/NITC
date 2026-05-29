@@ -22,7 +22,7 @@ export type SupportAction =
   | { type: "go_courses"; courseId?: string }
   | { type: "go_parent" }
   | { type: "go_dashboard" }
-  | { type: "open_info"; view: "manual" | "about" | "news" | "announcements" | "brand" | "curriculum" }
+  | { type: "open_info"; view: "manual" | "about" | "updates" | "brand" | "curriculum" }
   | { type: "demo"; message: string };
 
 interface SupportCentreProps {
@@ -119,7 +119,7 @@ export const CATEGORIES: CategoryContent[] = [
       "Family and community support means we work together with parents and the community to support students.",
     services: [
       { title: "Parent–Teacher Meetings", text: "Regular check-ins between teachers and families.", action: { type: "go_parent" }, cta: "Open Guardian portal" },
-      { title: "Community Partners",      text: "Local partners who work with the school to support students.", action: { type: "open_info", view: "announcements" }, cta: "See announcements" },
+      { title: "Community Partners",      text: "Local partners who work with the school to support students.", action: { type: "open_info", view: "updates" }, cta: "See news & updates" },
     ],
     contacts: [
       { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "family@nitc.edu" },

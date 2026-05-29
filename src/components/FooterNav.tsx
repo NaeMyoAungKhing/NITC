@@ -6,7 +6,7 @@
 import React, { useState } from "react";
 import {
   LayoutGrid, Rocket, TrendingUp, Users, Menu, X, Landmark,
-  Map, PhoneCall, BookOpen, ExternalLink, HelpCircle, Info, Newspaper, Megaphone, Palette, Layers
+  Map, PhoneCall, BookOpen, ExternalLink, HelpCircle, Info, Newspaper, Palette, Layers
 } from "lucide-react";
 import { PortalMode } from "../types";
 import { InfoView } from "./InfoModal";
@@ -138,13 +138,9 @@ export default function FooterNav({ currentMode, onSetMode, onOpenInfo }: Footer
                 <Layers className="w-4 h-4 text-indigo-600 shrink-0" />
                 <span className="font-mono text-[9px] font-bold text-indigo-700 uppercase">4-4-2 Curriculum</span>
               </button>
-              <button onClick={() => openInfo("news")} className="flex items-center gap-2 p-2.5 bg-[#001456]/5 border border-[#001456]/10 hover:border-[#001456]/40 rounded-xl text-left transition-all cursor-pointer">
+              <button onClick={() => openInfo("updates")} className="flex items-center gap-2 p-2.5 bg-[#001456]/5 border border-[#001456]/10 hover:border-[#001456]/40 rounded-xl text-left transition-all cursor-pointer col-span-2">
                 <Newspaper className="w-4 h-4 text-[#001456] shrink-0" />
-                <span className="font-mono text-[9px] font-bold text-[#001456] uppercase">News</span>
-              </button>
-              <button onClick={() => openInfo("announcements")} className="flex items-center gap-2 p-2.5 bg-[#001456]/5 border border-[#001456]/10 hover:border-[#001456]/40 rounded-xl text-left transition-all cursor-pointer col-span-2">
-                <Megaphone className="w-4 h-4 text-[#001456] shrink-0" />
-                <span className="font-mono text-[9px] font-bold text-[#001456] uppercase">Announcements</span>
+                <span className="font-mono text-[9px] font-bold text-[#001456] uppercase">News &amp; Updates</span>
               </button>
             </div>
 

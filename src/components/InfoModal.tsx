@@ -8,7 +8,7 @@ import { motion } from "motion/react";
 import {
   X, BookOpen, Info, Newspaper, LogIn, LayoutGrid, Rocket, TrendingUp,
   Users, Mail, GraduationCap, Cpu, HeartHandshake, Home, Briefcase, ExternalLink,
-  Megaphone, Calendar, ClipboardCheck, Wallet, Palette, Type, Layers
+  Calendar, ClipboardCheck, Wallet, Palette, Type, Layers
 } from "lucide-react";
 import NITCLogo from "./NITCLogo";
 import LogoBlue from "../assets/brand/logo-blue.png";
@@ -19,7 +19,7 @@ import LogoConceptArt from "../assets/brand/logo-concept.png";
 import LogoArchitectureArt from "../assets/brand/logo-architecture.png";
 import { CURRICULUM_YEAR_1 } from "../mockData";
 
-export type InfoView = "manual" | "about" | "news" | "announcements" | "brand" | "curriculum";
+export type InfoView = "manual" | "about" | "updates" | "brand" | "curriculum";
 
 interface InfoModalProps {
   view: InfoView | null;
@@ -87,8 +87,7 @@ const TABS: { id: InfoView; label: string; icon: React.ReactNode }[] = [
   { id: "about", label: "About", icon: <Info className="w-4 h-4" /> },
   { id: "curriculum", label: "Curriculum", icon: <Layers className="w-4 h-4" /> },
   { id: "brand", label: "Brand", icon: <Palette className="w-4 h-4" /> },
-  { id: "news", label: "News", icon: <Newspaper className="w-4 h-4" /> },
-  { id: "announcements", label: "Announcements", icon: <Megaphone className="w-4 h-4" /> },
+  { id: "updates", label: "News & Updates", icon: <Newspaper className="w-4 h-4" /> },
 ];
 
 const BRAND_COLORS = [
@@ -401,46 +400,57 @@ export default function InfoModal({ view, onClose, onSetView }: InfoModalProps) 
             </div>
           )}
 
-          {view === "news" && (
-            <div>
-              <h3 className="font-hanken text-2xl font-extrabold text-[#001456] mb-1">Catch-up News</h3>
-              <p className="font-sans text-xs text-slate-400 mb-5">Recent developments in Thailand and worldwide that shape learning at NITC.</p>
-              <div className="space-y-3">
-                {NEWS.map((n, i) => (
-                  <a key={i} href={n.url} target="_blank" rel="noreferrer"
-                    className="block bg-slate-50 hover:bg-slate-100/70 border border-slate-100 rounded-xl p-4 transition-colors group">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="font-mono text-[9px] font-black text-cyan-700 bg-cyan-50 border border-cyan-100 px-2 py-0.5 rounded uppercase tracking-wider">{n.tag}</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#001456]" />
-                    </div>
-                    <h4 className="font-hanken text-base font-extrabold text-[#001456] leading-snug">{n.title}</h4>
-                    <p className="font-sans text-xs text-slate-500 leading-relaxed mt-1">{n.summary}</p>
-                    <span className="block font-mono text-[10px] text-slate-400 mt-2">Source: {n.source}</span>
-                  </a>
-                ))}
+          {view === "updates" && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-hanken text-2xl font-extrabold text-[#001456] mb-1">News &amp; Updates</h3>
+                <p className="font-sans text-xs text-slate-400">Official NITC announcements plus catch-up news from Thailand and the world.</p>
               </div>
-              <p className="font-sans text-[10px] text-slate-300 mt-4 text-center">Sample references for the Resource &amp; News module — links open in a new tab.</p>
-            </div>
-          )}
 
-          {view === "announcements" && (
-            <div>
-              <h3 className="font-hanken text-2xl font-extrabold text-[#001456] mb-1">Announcements</h3>
-              <p className="font-sans text-xs text-slate-400 mb-5">Official notices from NITC — events, assessments and finance.</p>
-              <div className="space-y-3">
-                {ANNOUNCEMENTS.map((a, i) => (
-                  <div key={i} className="flex items-start gap-3 bg-slate-50 border border-slate-100 rounded-xl p-4">
-                    <div className="w-10 h-10 shrink-0 rounded-lg bg-cyan-50 text-cyan-600 border border-cyan-100 flex items-center justify-center">{a.icon}</div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-mono text-[9px] font-black text-[#001456] bg-[#001456]/5 border border-[#001456]/10 px-2 py-0.5 rounded uppercase tracking-wider">{a.tag}</span>
-                        <span className="font-mono text-[10px] text-slate-400">{a.when}</span>
+              {/* School announcements first — most relevant to students */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">From NITC · Announcements</span>
+                  <span className="font-mono text-[10px] text-[#001456] bg-[#001456]/5 border border-[#001456]/10 px-2 py-0.5 rounded font-bold tracking-widest uppercase">{ANNOUNCEMENTS.length} active</span>
+                </div>
+                <div className="space-y-3">
+                  {ANNOUNCEMENTS.map((a, i) => (
+                    <div key={i} className="flex items-start gap-3 bg-slate-50 border border-slate-100 rounded-xl p-4">
+                      <div className="w-10 h-10 shrink-0 rounded-lg bg-cyan-50 text-cyan-600 border border-cyan-100 flex items-center justify-center">{a.icon}</div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-mono text-[9px] font-black text-[#001456] bg-[#001456]/5 border border-[#001456]/10 px-2 py-0.5 rounded uppercase tracking-wider">{a.tag}</span>
+                          <span className="font-mono text-[10px] text-slate-400">{a.when}</span>
+                        </div>
+                        <h4 className="font-hanken text-base font-extrabold text-[#001456] leading-snug">{a.title}</h4>
+                        <p className="font-sans text-xs text-slate-500 leading-relaxed mt-0.5">{a.text}</p>
                       </div>
-                      <h4 className="font-hanken text-base font-extrabold text-[#001456] leading-snug">{a.title}</h4>
-                      <p className="font-sans text-xs text-slate-500 leading-relaxed mt-0.5">{a.text}</p>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </div>
+
+              {/* External news — context from the wider world */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Catch-up news · Thailand &amp; world</span>
+                  <span className="font-mono text-[10px] text-cyan-700 bg-cyan-50 border border-cyan-100 px-2 py-0.5 rounded font-bold tracking-widest uppercase">{NEWS.length} articles</span>
+                </div>
+                <div className="space-y-3">
+                  {NEWS.map((n, i) => (
+                    <a key={i} href={n.url} target="_blank" rel="noreferrer"
+                      className="block bg-slate-50 hover:bg-slate-100/70 border border-slate-100 rounded-xl p-4 transition-colors group">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="font-mono text-[9px] font-black text-cyan-700 bg-cyan-50 border border-cyan-100 px-2 py-0.5 rounded uppercase tracking-wider">{n.tag}</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#001456]" />
+                      </div>
+                      <h4 className="font-hanken text-base font-extrabold text-[#001456] leading-snug">{n.title}</h4>
+                      <p className="font-sans text-xs text-slate-500 leading-relaxed mt-1">{n.summary}</p>
+                      <span className="block font-mono text-[10px] text-slate-400 mt-2">Source: {n.source}</span>
+                    </a>
+                  ))}
+                </div>
+                <p className="font-sans text-[10px] text-slate-300 mt-4 text-center">Sample references for the Resource &amp; News module — links open in a new tab.</p>
               </div>
             </div>
           )}

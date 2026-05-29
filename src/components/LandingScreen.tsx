@@ -5,7 +5,7 @@
 
 import React, { useState } from "react";
 import { motion } from "motion/react";
-import { GraduationCap, ShieldAlert, BookOpen, Layers, Zap, Smartphone, Monitor, Info, Newspaper, Megaphone, Palette, Layers3 } from "lucide-react";
+import { GraduationCap, ShieldAlert, BookOpen, Layers, Zap, Smartphone, Monitor, Info, Newspaper, Palette, Layers3 } from "lucide-react";
 import { PortalMode } from "../types";
 import { InfoView } from "./InfoModal";
 
@@ -123,8 +123,7 @@ export default function LandingScreen({ onSelectMode, backgroundImageUrl, onOpen
         <div className="flex flex-wrap items-center justify-center gap-2">
           <button onClick={() => onOpenInfo("about")} className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 rounded-lg px-3.5 py-2 font-mono text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"><Info className="w-3.5 h-3.5" />About NITC</button>
           <button onClick={() => onOpenInfo("manual")} className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 rounded-lg px-3.5 py-2 font-mono text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"><BookOpen className="w-3.5 h-3.5" />How to use</button>
-          <button onClick={() => onOpenInfo("news")} className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 rounded-lg px-3.5 py-2 font-mono text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"><Newspaper className="w-3.5 h-3.5" />Latest News</button>
-          <button onClick={() => onOpenInfo("announcements")} className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 rounded-lg px-3.5 py-2 font-mono text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"><Megaphone className="w-3.5 h-3.5" />Announcements</button>
+          <button onClick={() => onOpenInfo("updates")} className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 rounded-lg px-3.5 py-2 font-mono text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"><Newspaper className="w-3.5 h-3.5" />News &amp; Updates</button>
           <button onClick={() => onOpenInfo("brand")} className="flex items-center gap-1.5 bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/30 text-cyan-300 rounded-lg px-3.5 py-2 font-mono text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"><Palette className="w-3.5 h-3.5" />Brand Guideline</button>
           <button onClick={() => onOpenInfo("curriculum")} className="flex items-center gap-1.5 bg-indigo-400/10 hover:bg-indigo-400/20 border border-indigo-400/30 text-indigo-300 rounded-lg px-3.5 py-2 font-mono text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"><Layers3 className="w-3.5 h-3.5" />4-4-2 Curriculum</button>
         </div>

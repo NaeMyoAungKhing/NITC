@@ -6,7 +6,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import {
-  X, GraduationCap, Settings, Brain, Briefcase, Globe2, ShieldCheck, Mail
+  X, GraduationCap, Settings, Brain, Briefcase, Globe2, ShieldCheck, Mail, ArrowRight
 } from "lucide-react";
 import NITCLogo from "./NITCLogo";
 
@@ -17,10 +17,26 @@ export type SupportCategory =
   | "family_community"
   | "future_readiness";
 
+export type SupportAction =
+  | { type: "contact" }
+  | { type: "go_courses"; courseId?: string }
+  | { type: "go_parent" }
+  | { type: "go_dashboard" }
+  | { type: "open_info"; view: "manual" | "about" | "news" | "announcements" | "brand" | "curriculum" }
+  | { type: "demo"; message: string };
+
 interface SupportCentreProps {
   open: SupportCategory | null;
   onClose: () => void;
   onSetOpen: (c: SupportCategory) => void;
+  onAction: (action: SupportAction) => void;
+}
+
+interface ServiceItem {
+  title: string;
+  text: string;
+  action: SupportAction;
+  cta: string;
 }
 
 interface CategoryContent {
@@ -32,7 +48,7 @@ interface CategoryContent {
   bg: string;
   tagline: string;
   intro: string;
-  services: { title: string; text: string }[];
+  services: ServiceItem[];
   contacts: { icon: React.ReactNode; label: string; value: string }[];
 }
 
@@ -48,8 +64,8 @@ export const CATEGORIES: CategoryContent[] = [
     intro:
       "Academic support helps students understand their lessons better — like tutoring and extra help from teachers.",
     services: [
-      { title: "Tutoring",            text: "Extra one-to-one help with a teacher or peer for any course." },
-      { title: "Extra Help Sessions", text: "Open hours where teachers help with questions and revision." },
+      { title: "Tutoring",            text: "Extra one-to-one help with a teacher or peer for any course.", action: { type: "contact" }, cta: "Contact a teacher" },
+      { title: "Extra Help Sessions", text: "Open hours where teachers help with questions and revision.",  action: { type: "go_courses" }, cta: "Go to my courses" },
     ],
     contacts: [
       { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "academic-support@nitc.edu" },
@@ -66,8 +82,8 @@ export const CATEGORIES: CategoryContent[] = [
     intro:
       "Technology support helps students use computers and digital tools for learning.",
     services: [
-      { title: "Device & Login Help", text: "Help with school accounts, the LMS and student devices." },
-      { title: "Digital Tools",       text: "Access to the software and platforms students need for class." },
+      { title: "Device & Login Help", text: "Help with school accounts, the LMS and student devices.", action: { type: "demo", message: "A support ticket would be created and the IT team would reach out within 30 minutes." }, cta: "Open a ticket" },
+      { title: "Digital Tools",       text: "Access to the software and platforms students need for class.", action: { type: "open_info", view: "manual" }, cta: "Open the manual" },
     ],
     contacts: [
       { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "tech-support@nitc.edu" },
@@ -84,8 +100,8 @@ export const CATEGORIES: CategoryContent[] = [
     intro:
       "Social and emotional support helps students feel safe, happy, and confident in school.",
     services: [
-      { title: "Counselling",     text: "A confidential space to talk when school feels hard." },
-      { title: "Peer Listeners",  text: "Trained senior students you can talk to about anything." },
+      { title: "Counselling",     text: "A confidential space to talk when school feels hard.", action: { type: "contact" }, cta: "Book a session" },
+      { title: "Peer Listeners",  text: "Trained senior students you can talk to about anything.", action: { type: "demo", message: "Peer-listener calendar would open here. Today: Archer, Lyra and 2 more are available between 12:00 and 17:00." }, cta: "See who's free" },
     ],
     contacts: [
       { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "wellbeing@nitc.edu" },
@@ -102,8 +118,8 @@ export const CATEGORIES: CategoryContent[] = [
     intro:
       "Family and community support means we work together with parents and the community to support students.",
     services: [
-      { title: "Parent–Teacher Meetings", text: "Regular check-ins between teachers and families." },
-      { title: "Community Partners",      text: "Local partners who work with the school to support students." },
+      { title: "Parent–Teacher Meetings", text: "Regular check-ins between teachers and families.", action: { type: "go_parent" }, cta: "Open Guardian portal" },
+      { title: "Community Partners",      text: "Local partners who work with the school to support students.", action: { type: "open_info", view: "announcements" }, cta: "See announcements" },
     ],
     contacts: [
       { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "family@nitc.edu" },
@@ -120,8 +136,8 @@ export const CATEGORIES: CategoryContent[] = [
     intro:
       "Career and industry support helps students prepare for the future — like jobs and real-world skills.",
     services: [
-      { title: "Career Guidance",       text: "Conversations about pathways after NITC — work, study or start-up." },
-      { title: "Onsite Career Training", text: "Real workplace experience with a partner company." },
+      { title: "Career Guidance",        text: "Conversations about pathways after NITC — work, study or start-up.", action: { type: "contact" }, cta: "Book a chat" },
+      { title: "Onsite Career Training", text: "Real workplace experience with a partner company.", action: { type: "open_info", view: "curriculum" }, cta: "See in curriculum" },
     ],
     contacts: [
       { icon: <Mail className="w-3.5 h-3.5" />, label: "Contact", value: "careers@nitc.edu" },
@@ -129,7 +145,7 @@ export const CATEGORIES: CategoryContent[] = [
   },
 ];
 
-export default function SupportCentre({ open, onClose, onSetOpen }: SupportCentreProps) {
+export default function SupportCentre({ open, onClose, onSetOpen, onAction }: SupportCentreProps) {
   if (!open) return null;
   const active = CATEGORIES.find(c => c.id === open) ?? CATEGORIES[0];
 
@@ -192,20 +208,34 @@ export default function SupportCentre({ open, onClose, onSetOpen }: SupportCentr
             <p className="font-sans text-sm text-slate-600 leading-relaxed mt-1.5">{active.intro}</p>
           </div>
 
-          {/* Examples */}
+          {/* Quick actions */}
           <div>
-            <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Some examples</span>
+            <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Quick access</span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3">
               {active.services.map((s, i) => (
-                <div key={i} className={`rounded-xl border p-3.5 ${active.bg}`}>
+                <button
+                  key={i}
+                  onClick={() => {
+                    if (s.action.type === "demo") {
+                      alert(s.action.message);
+                    } else {
+                      onClose();
+                      onAction(s.action);
+                    }
+                  }}
+                  className={`text-left rounded-xl border p-3.5 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group ${active.bg}`}
+                >
                   <div className="flex items-start gap-2.5">
                     <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5 opacity-70" />
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <span className="block font-sans text-sm font-extrabold leading-snug">{s.title}</span>
                       <span className="block font-sans text-xs leading-relaxed mt-0.5 opacity-90">{s.text}</span>
+                      <span className="inline-flex items-center gap-1 mt-2 font-mono text-[10px] font-extrabold tracking-widest uppercase opacity-80 group-hover:opacity-100">
+                        <span>{s.cta}</span><ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                      </span>
                     </div>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>

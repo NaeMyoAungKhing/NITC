@@ -366,4 +366,54 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
                     <span className="block font-mono text-[10px] text-slate-400 leading-none font-bold uppercase">
                       {fp.day}
                     </span>
-                    <span className=
+                    <span className="block font-hanken text-lg font-extrabold text-[#001456] leading-tight">
+                      {fp.dateNum + (currentWeekOffset * 7)}
+                    </span>
+                  </div>
+                  
+                  {/* Divider line in row */}
+                  <div className="h-8 w-[1px] bg-slate-200 hidden sm:block" />
+
+                  {/* Title and location badge */}
+                  <div>
+                    <span className={`block font-sans text-sm font-extrabold ${fp.isBreak ? "text-slate-400 line-through" : "text-slate-800"}`}>
+                      {fp.title}
+                    </span>
+                    <span className="block font-sans text-xs text-slate-400">
+                      {fp.isBreak ? "No class scheduled" : "Scheduled class"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Sub details on right */}
+                <div className="flex items-center sm:text-right gap-3 mt-1 sm:mt-0">
+                  <div className="font-mono text-right">
+                    <span className="block text-xs font-bold text-[#001456]">
+                      {fp.timeRange}
+                    </span>
+                    {fp.location && (
+                      <span className="inline-block text-[9px] font-bold text-cyan-600 bg-cyan-50 border border-cyan-100 px-1.5 py-0.5 rounded uppercase leading-none mt-1">
+                        {fp.location}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Active/Linked visual feedback */}
+                  {!fp.isBreak && (
+                    <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-all ${
+                      isAct ? "bg-[#001456] border-[#001456] text-white" : "border-slate-300 bg-white"
+                    }`}>
+                      {isAct && <div className="w-1 h-1 bg-white rounded-full" />}
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      
+    </div>
+  );
+}

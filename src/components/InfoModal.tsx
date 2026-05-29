@@ -429,4 +429,23 @@ export default function InfoModal({ view, onClose, onSetView }: InfoModalProps) 
               <p className="font-sans text-xs text-slate-400 mb-5">Official notices from NITC — events, assessments and finance.</p>
               <div className="space-y-3">
                 {ANNOUNCEMENTS.map((a, i) => (
-                  <div key={i} className="flex items-start gap-3 bg-sla
+                  <div key={i} className="flex items-start gap-3 bg-slate-50 border border-slate-100 rounded-xl p-4">
+                    <div className="w-10 h-10 shrink-0 rounded-lg bg-cyan-50 text-cyan-600 border border-cyan-100 flex items-center justify-center">{a.icon}</div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-mono text-[9px] font-black text-[#001456] bg-[#001456]/5 border border-[#001456]/10 px-2 py-0.5 rounded uppercase tracking-wider">{a.tag}</span>
+                        <span className="font-mono text-[10px] text-slate-400">{a.when}</span>
+                      </div>
+                      <h4 className="font-hanken text-base font-extrabold text-[#001456] leading-snug">{a.title}</h4>
+                      <p className="font-sans text-xs text-slate-500 leading-relaxed mt-0.5">{a.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </div>
+  );
+}

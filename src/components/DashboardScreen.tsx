@@ -5,21 +5,23 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { 
+import {
   Terminal, Sliders, Zap, ChevronLeft, ChevronRight, Rocket,
-  Calendar, CheckCircle2, Pin, ShieldAlert, Cpu
+  Calendar, CheckCircle2, Pin, ShieldAlert, Cpu, ArrowRight
 } from "lucide-react";
 import { ModuleStatus, FlightPlanItem } from "../types";
 import { INSTALLED_MODULES, WEEKLY_FLIGHT_PLAN } from "../mockData";
 import NITCLogo from "./NITCLogo";
 import { GeometricTileBackground } from "./NITCBackground";
+import { CATEGORIES as SUPPORT_CATEGORIES, SupportCategory } from "./SupportCentre";
 
 interface DashboardScreenProps {
   onNavigateToMissions: () => void;
   roboticsLabImage: string;
+  onOpenSupport: (c: SupportCategory) => void;
 }
 
-export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage }: DashboardScreenProps) {
+export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage, onOpenSupport }: DashboardScreenProps) {
   const [modules, setModules] = useState<ModuleStatus[]>(INSTALLED_MODULES);
   const [flightPlans, setFlightPlans] = useState<FlightPlanItem[]>(WEEKLY_FLIGHT_PLAN);
   const [currentWeekOffset, setCurrentWeekOffset] = useState(0);
@@ -62,6 +64,38 @@ export default function DashboardScreen({ onNavigateToMissions, roboticsLabImage
           <span className="text-[#001456] font-semibold"> AI for Business Applications</span> course to stay on top of your 4-4-2 curriculum.
         </p>
       </motion.div>
+
+      {/* Student Support Centre — 5 main support functions */}
+      <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-[0_4px_20px_rgba(26,43,109,0.02)]">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="font-hanken text-xl font-extrabold text-[#001456] tracking-tight">Student Support Centre</h3>
+            <p className="font-sans text-xs text-slate-500 leading-relaxed">Our five main support functions — tap a card to open the team that helps you with that.</p>
+          </div>
+          <span className="font-mono text-[10px] text-cyan-700 bg-cyan-50 border border-cyan-100 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">5 PILLARS</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {SUPPORT_CATEGORIES.map((cat, idx) => (
+            <button
+              key={cat.id}
+              onClick={() => onOpenSupport(cat.id)}
+              className={`group relative overflow-hidden rounded-xl border border-transparent bg-gradient-to-br ${cat.accent} text-white p-4 text-left transition-all hover:scale-[1.02] hover:shadow-lg cursor-pointer min-h-[140px] flex flex-col justify-between`}
+            >
+              <div className="absolute -top-6 -right-6 w-20 h-20 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+              <div className="relative w-10 h-10 rounded-lg bg-white/15 border border-white/20 flex items-center justify-center">
+                {cat.icon}
+              </div>
+              <div className="relative">
+                <span className="block font-mono text-[8.5px] text-white/70 tracking-widest font-bold uppercase mb-1">Pillar 0{idx + 1}</span>
+                <span className="block font-hanken text-sm font-extrabold leading-tight">{cat.label}</span>
+                <div className="flex items-center gap-1 mt-2 font-mono text-[9px] text-white/80 group-hover:text-white tracking-wider">
+                  <span>Open</span><ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Grid: Matrix Summary + Action Banner */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">

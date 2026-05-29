@@ -8,15 +8,16 @@ import { motion } from "motion/react";
 import {
   X, BookOpen, Info, Newspaper, LogIn, LayoutGrid, Rocket, TrendingUp,
   Users, Mail, GraduationCap, Cpu, HeartHandshake, Home, Briefcase, ExternalLink,
-  Megaphone, Calendar, ClipboardCheck, Wallet, Palette, Star, Type, Sparkles
+  Megaphone, Calendar, ClipboardCheck, Wallet, Palette, Star, Type, Sparkles, Layers
 } from "lucide-react";
 import NITCLogo from "./NITCLogo";
 import LogoBlue from "../assets/brand/logo-blue.png";
 import BrandmarkBlue from "../assets/brand/brandmark-blue.png";
 import Pattern1Blue from "../assets/brand/pattern1-blue.png";
 import Pattern2Blue from "../assets/brand/pattern2-blue.png";
+import { CURRICULUM_YEAR_1 } from "../mockData";
 
-export type InfoView = "manual" | "about" | "news" | "announcements" | "brand";
+export type InfoView = "manual" | "about" | "news" | "announcements" | "brand" | "curriculum";
 
 interface InfoModalProps {
   view: InfoView | null;
@@ -82,6 +83,7 @@ const ANNOUNCEMENTS = [
 const TABS: { id: InfoView; label: string; icon: React.ReactNode }[] = [
   { id: "manual", label: "Manual", icon: <BookOpen className="w-4 h-4" /> },
   { id: "about", label: "About", icon: <Info className="w-4 h-4" /> },
+  { id: "curriculum", label: "Curriculum", icon: <Layers className="w-4 h-4" /> },
   { id: "brand", label: "Brand", icon: <Palette className="w-4 h-4" /> },
   { id: "news", label: "News", icon: <Newspaper className="w-4 h-4" /> },
   { id: "announcements", label: "Announcements", icon: <Megaphone className="w-4 h-4" /> },
@@ -188,6 +190,84 @@ export default function InfoModal({ view, onClose, onSetView }: InfoModalProps) 
                   ))}
                 </div>
               </div>
+            </div>
+          )}
+
+          {view === "curriculum" && (
+            <div className="space-y-5">
+              <div>
+                <h3 className="font-hanken text-2xl font-extrabold text-[#001456] mb-1">The 4-4-2 Curriculum</h3>
+                <p className="font-sans text-xs text-slate-500 leading-relaxed">
+                  Every NITC programme splits credit time three ways:
+                  <span className="text-[#001456] font-semibold"> Theory 40% </span>,
+                  <span className="text-[#001456] font-semibold"> Competency 40% </span>and
+                  <span className="text-[#001456] font-semibold"> Practical 20% </span>.
+                  Theory builds foundations; Competency builds the working skills employers ask for; Practical proves both in a real setting.
+                </p>
+              </div>
+
+              {/* The 4-4-2 split visual */}
+              <div className="rounded-xl overflow-hidden border border-slate-100 bg-white">
+                <div className="flex h-3">
+                  <div className="bg-indigo-600" style={{ width: "40%" }} />
+                  <div className="bg-amber-500" style={{ width: "40%" }} />
+                  <div className="bg-emerald-500" style={{ width: "20%" }} />
+                </div>
+                <div className="grid grid-cols-3 text-center divide-x divide-slate-100">
+                  <div className="p-3">
+                    <span className="block font-mono text-[10px] text-indigo-600 font-bold tracking-widest uppercase">Theory</span>
+                    <span className="block font-hanken text-2xl font-extrabold text-[#001456]">40%</span>
+                  </div>
+                  <div className="p-3">
+                    <span className="block font-mono text-[10px] text-amber-600 font-bold tracking-widest uppercase">Competency</span>
+                    <span className="block font-hanken text-2xl font-extrabold text-[#001456]">40%</span>
+                  </div>
+                  <div className="p-3">
+                    <span className="block font-mono text-[10px] text-emerald-600 font-bold tracking-widest uppercase">Practical</span>
+                    <span className="block font-hanken text-2xl font-extrabold text-[#001456]">20%</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Year 1 subjects */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-mono text-[10px] text-slate-400 font-bold tracking-widest uppercase">Year 1 · Subjects</span>
+                  <span className="font-mono text-[10px] text-cyan-700 bg-cyan-50 border border-cyan-100 px-2 py-0.5 rounded font-bold tracking-widest uppercase">Term 1 · 2027</span>
+                </div>
+                <div className="space-y-3">
+                  {(["THEORY", "COMPETENCY", "PRACTICAL"] as const).map(pillar => {
+                    const subjects = CURRICULUM_YEAR_1.filter(s => s.pillar === pillar);
+                    const pillarMeta = {
+                      THEORY:     { pct: 40, accent: "text-indigo-700 bg-indigo-50 border-indigo-200" },
+                      COMPETENCY: { pct: 40, accent: "text-amber-700 bg-amber-50 border-amber-200" },
+                      PRACTICAL:  { pct: 20, accent: "text-emerald-700 bg-emerald-50 border-emerald-200" },
+                    }[pillar];
+                    return (
+                      <div key={pillar} className="bg-slate-50 border border-slate-100 rounded-xl p-4">
+                        <div className="flex items-center justify-between mb-2.5">
+                          <span className="font-hanken text-base font-extrabold text-[#001456]">{pillar} <span className="text-slate-400">·</span> <span className="text-cyan-700">{pillarMeta.pct}%</span></span>
+                          <span className="font-mono text-[10px] text-slate-400">{subjects.length} subjects</span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {subjects.map(s => (
+                            <div key={s.code} className={`flex items-center gap-2 bg-white border rounded-lg px-3 py-2 text-xs font-sans ${pillarMeta.accent}`}>
+                              <span className="font-mono text-[9.5px] font-black tracking-wider opacity-80">{s.code}</span>
+                              <span className="font-bold flex-1 truncate">{s.name}</span>
+                              {s.compulsory && <span className="font-mono text-[8.5px] bg-rose-100 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded font-black tracking-wider uppercase">Compulsory</span>}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <p className="font-sans text-[11px] text-slate-400 leading-relaxed">
+                Year 2 deepens competency and starts capstone projects; Year 3 raises the practical share with industry placements.
+                Each course in the LMS is tagged by pillar so students can see their balance across Theory, Competency and Practical in real time.
+              </p>
             </div>
           )}
 

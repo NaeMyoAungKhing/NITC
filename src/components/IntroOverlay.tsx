@@ -10,7 +10,6 @@ import {
   Settings, Brain, Briefcase, Globe2, Wallet, CheckCircle2, Play, BookOpen
 } from "lucide-react";
 import NITCLogo from "./NITCLogo";
-import { CyberGridBackground } from "./NITCBackground";
 
 interface IntroOverlayProps {
   onFinish: () => void;
@@ -187,7 +186,7 @@ const SLIDES: Slide[] = [
   {
     step: "01 / 04",
     title: "Dashboard",
-    body: "Your home screen. Curriculum, support and what to do next — all on one page.",
+    body: "The home screen — curriculum, student support and what to do next, all on one page.",
     icon: <LayoutGrid className="w-5 h-5" />,
     accent: "text-cyan-300",
     mockup: <DashboardMockup />,
@@ -195,7 +194,7 @@ const SLIDES: Slide[] = [
   {
     step: "02 / 04",
     title: "Courses (LMS)",
-    body: "Every course end-to-end — lessons, materials, assignments, quizzes, discussion.",
+    body: "Every course end-to-end — lessons, materials, assignments, quizzes and discussion.",
     icon: <Rocket className="w-5 h-5" />,
     accent: "text-emerald-300",
     mockup: <CoursesMockup />,
@@ -203,7 +202,7 @@ const SLIDES: Slide[] = [
   {
     step: "03 / 04",
     title: "Progress",
-    body: "Track GPA and your 4-4-2 balance across Theory, Competency and Practical.",
+    body: "Tracks GPA and the 4-4-2 balance across Theory, Competency and Practical.",
     icon: <TrendingUp className="w-5 h-5" />,
     accent: "text-amber-300",
     mockup: <ProgressMockup />,
@@ -211,7 +210,7 @@ const SLIDES: Slide[] = [
   {
     step: "04 / 04",
     title: "Parents",
-    body: "Guardians follow grades, attendance and fees — and message teachers directly.",
+    body: "Guardians follow grades, attendance and fees, and message teachers directly.",
     icon: <Users className="w-5 h-5" />,
     accent: "text-rose-300",
     mockup: <ParentMockup />,
@@ -259,22 +258,21 @@ export default function IntroOverlay({ onFinish }: IntroOverlayProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04081a] overflow-hidden select-none"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04081a]/55 backdrop-blur-md overflow-hidden select-none"
         >
-          <CyberGridBackground theme="dark" />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#04081a] via-[#06122f]/95 to-[#001456]/90 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#04081a]/60 via-[#06122f]/55 to-[#001456]/55 pointer-events-none" />
 
           <motion.div
-            initial={{ scale: 0.9, opacity: 0.5 }}
-            animate={{ scale: [0.9, 1.05, 0.9], opacity: [0.4, 0.8, 0.4] }}
+            initial={{ scale: 0.9, opacity: 0.3 }}
+            animate={{ scale: [0.9, 1.05, 0.9], opacity: [0.2, 0.45, 0.2] }}
             transition={{ duration: 5, repeat: Infinity }}
-            className="absolute -top-32 -left-32 w-[36rem] h-[36rem] rounded-full bg-cyan-500/20 blur-3xl pointer-events-none"
+            className="absolute -top-32 -left-32 w-[28rem] h-[28rem] rounded-full bg-cyan-500/20 blur-3xl pointer-events-none"
           />
           <motion.div
-            initial={{ scale: 1.1, opacity: 0.4 }}
-            animate={{ scale: [1.1, 0.95, 1.1], opacity: [0.3, 0.6, 0.3] }}
+            initial={{ scale: 1.1, opacity: 0.25 }}
+            animate={{ scale: [1.1, 0.95, 1.1], opacity: [0.2, 0.4, 0.2] }}
             transition={{ duration: 6, repeat: Infinity }}
-            className="absolute -bottom-32 -right-32 w-[36rem] h-[36rem] rounded-full bg-[#293490]/40 blur-3xl pointer-events-none"
+            className="absolute -bottom-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-[#293490]/40 blur-3xl pointer-events-none"
           />
 
           {/* Skip button */}
@@ -291,8 +289,8 @@ export default function IntroOverlay({ onFinish }: IntroOverlayProps) {
             <span className="font-mono text-[9px] text-amber-300 bg-amber-300/15 border border-amber-300/30 px-2 py-0.5 rounded font-bold tracking-widest uppercase">BETA</span>
           </div>
 
-          {/* Slide content: mockup + caption */}
-          <div className="relative z-10 max-w-3xl w-full px-6">
+          {/* Slide content: mockup + caption — sized down so the app peeks through */}
+          <div className="relative z-10 max-w-2xl w-full px-6 py-4 rounded-2xl bg-[#04081a]/70 border border-white/10 shadow-2xl backdrop-blur-md">
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
@@ -324,7 +322,7 @@ export default function IntroOverlay({ onFinish }: IntroOverlayProps) {
                   </p>
                   <div className="flex items-center justify-center sm:justify-start gap-1.5 mt-4 font-mono text-[10px] text-cyan-300 tracking-widest">
                     <CheckCircle2 className="w-3 h-3" />
-                    <span>Live demo · explore after intro</span>
+                    <span>Live demo · open after intro</span>
                   </div>
                 </div>
               </motion.div>

@@ -6,7 +6,8 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
-  Sparkles, Rocket, Layers, HeartHandshake, X
+  LayoutGrid, Rocket, TrendingUp, Users, X, GraduationCap,
+  Settings, Brain, Briefcase, Globe2, Wallet, CheckCircle2, Play, BookOpen
 } from "lucide-react";
 import NITCLogo from "./NITCLogo";
 import { CyberGridBackground } from "./NITCBackground";
@@ -16,46 +17,206 @@ interface IntroOverlayProps {
 }
 
 interface Slide {
-  eyebrow: string;
+  step: string;
   title: string;
   body: string;
   icon: React.ReactNode;
-  accent: string; // tailwind text color for the icon ring
+  accent: string;
+  mockup: React.ReactNode;
+}
+
+const SLIDE_MS = 3400;
+const STORAGE_KEY = "nitc_intro_seen_v1";
+
+// --------- Mini-mockup components (CSS-only, no real screenshots) ---------
+
+function DashboardMockup() {
+  const pillars = [
+    { icon: <GraduationCap className="w-3 h-3" />, color: "from-[#001456] to-[#293490]" },
+    { icon: <Settings className="w-3 h-3" />,      color: "from-cyan-600 to-[#001456]" },
+    { icon: <Brain className="w-3 h-3" />,         color: "from-rose-500 to-[#001456]" },
+    { icon: <Globe2 className="w-3 h-3" />,        color: "from-emerald-600 to-[#001456]" },
+    { icon: <Briefcase className="w-3 h-3" />,     color: "from-amber-600 to-[#001456]" },
+  ];
+  const curriculum = [
+    { label: "THEORY", pct: 40, w: 75, color: "from-indigo-600 to-indigo-400" },
+    { label: "COMPETENCY", pct: 40, w: 40, color: "from-amber-500 to-orange-400" },
+    { label: "PRACTICAL", pct: 20, w: 60, color: "from-emerald-500 to-cyan-400" },
+  ];
+  return (
+    <div className="rounded-xl bg-white/95 p-3 shadow-2xl border border-white/20 w-full text-[#001456]">
+      <div className="flex items-center justify-between mb-2">
+        <span className="font-mono text-[8px] tracking-widest font-bold opacity-60">DASHBOARD · HELLO STUDENT</span>
+        <span className="font-mono text-[7px] bg-cyan-50 border border-cyan-100 px-1.5 py-0.5 rounded text-cyan-700 font-bold tracking-widest">5 PILLARS</span>
+      </div>
+      <div className="grid grid-cols-5 gap-1 mb-3">
+        {pillars.map((p, i) => (
+          <div key={i} className={`bg-gradient-to-br ${p.color} h-10 rounded-md text-white flex items-center justify-center`}>
+            {p.icon}
+          </div>
+        ))}
+      </div>
+      <div className="bg-slate-50 rounded-lg p-2 space-y-1.5">
+        {curriculum.map((c, i) => (
+          <div key={i}>
+            <div className="flex items-center justify-between mb-0.5">
+              <span className="font-mono text-[8px] font-bold opacity-70">{c.pct}% · {c.label}</span>
+            </div>
+            <div className="h-1 bg-slate-200 rounded-full overflow-hidden">
+              <div className={`h-full bg-gradient-to-r ${c.color} rounded-full`} style={{ width: `${c.w}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CoursesMockup() {
+  return (
+    <div className="rounded-xl bg-white/95 p-3 shadow-2xl border border-white/20 w-full text-[#001456] space-y-2">
+      <div className="flex items-center justify-between">
+        <span className="font-mono text-[8px] tracking-widest font-bold opacity-60">MY COURSES</span>
+        <span className="font-mono text-[7px] bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded text-emerald-700 font-bold tracking-widest">ACTIVE · 2</span>
+      </div>
+      <div className="bg-slate-50 border border-slate-100 rounded-lg p-2.5">
+        <div className="flex items-center justify-between mb-1">
+          <span className="font-mono text-[7px] bg-[#001456] text-white px-1.5 py-0.5 rounded tracking-widest">CORE</span>
+          <span className="font-mono text-[7px] opacity-50">04 · 4 DAYS</span>
+        </div>
+        <h4 className="font-hanken text-sm font-extrabold leading-tight">AI for Business Applications</h4>
+        <div className="grid grid-cols-3 gap-1 my-1.5 text-center">
+          <div className="bg-white border border-slate-100 rounded py-0.5"><span className="font-mono text-[7px]">4 THEORY</span></div>
+          <div className="bg-white border border-slate-100 rounded py-0.5"><span className="font-mono text-[7px]">4 COMPETENCY</span></div>
+          <div className="bg-white border border-slate-100 rounded py-0.5"><span className="font-mono text-[7px]">2 PRACTICAL</span></div>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[7px] opacity-60">78% COMPLETE</span>
+          <div className="bg-[#001456] text-white px-1.5 py-0.5 rounded text-[7px] font-mono font-bold flex items-center gap-1">
+            <Play className="w-2 h-2 fill-current" />CONTINUE
+          </div>
+        </div>
+        <div className="w-full h-1 bg-slate-200 rounded-full overflow-hidden mt-1">
+          <div className="h-full bg-gradient-to-r from-cyan-400 to-[#001456] rounded-full" style={{ width: "78%" }} />
+        </div>
+      </div>
+      <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 flex items-center justify-between">
+        <div>
+          <span className="font-mono text-[7px] opacity-50">02</span>
+          <h4 className="font-sans text-[10px] font-bold">Basic Business Data Analysis</h4>
+        </div>
+        <span className="font-mono text-[7px] opacity-60">42%</span>
+      </div>
+    </div>
+  );
+}
+
+function ProgressMockup() {
+  return (
+    <div className="rounded-xl bg-white/95 p-3 shadow-2xl border border-white/20 w-full text-[#001456] space-y-2">
+      <div className="flex items-center justify-between">
+        <span className="font-mono text-[8px] tracking-widest font-bold opacity-60">MY PROGRESS</span>
+        <span className="font-mono text-[7px] bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded text-amber-700 font-bold tracking-widest">GPA · 3.84</span>
+      </div>
+      <div className="bg-gradient-to-br from-[#001456] to-[#293490] rounded-lg p-2.5 text-white">
+        <span className="font-mono text-[7px] tracking-widest opacity-70">PROJECTED GPA</span>
+        <div className="flex items-baseline gap-1 mt-0.5">
+          <span className="font-hanken text-2xl font-extrabold">3.92</span>
+          <span className="font-mono text-[8px] text-emerald-300">↑ +0.08</span>
+        </div>
+        <div className="w-full h-1 bg-white/15 rounded-full overflow-hidden mt-2">
+          <div className="h-full bg-cyan-300 rounded-full" style={{ width: "92%" }} />
+        </div>
+      </div>
+      <div className="space-y-1">
+        {[
+          { label: "Theory", pct: 75, color: "bg-indigo-500" },
+          { label: "Competency", pct: 40, color: "bg-amber-500" },
+          { label: "Practical", pct: 60, color: "bg-emerald-500" },
+        ].map((p, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <span className="font-mono text-[7px] w-12 opacity-70">{p.label}</span>
+            <div className="flex-1 h-1 bg-slate-200 rounded-full overflow-hidden">
+              <div className={`h-full ${p.color} rounded-full`} style={{ width: `${p.pct}%` }} />
+            </div>
+            <span className="font-mono text-[7px] font-bold">{p.pct}%</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ParentMockup() {
+  return (
+    <div className="rounded-xl bg-white/95 p-3 shadow-2xl border border-white/20 w-full text-[#001456] space-y-2">
+      <div className="flex items-center justify-between">
+        <span className="font-mono text-[8px] tracking-widest font-bold opacity-60">GUARDIAN DASHBOARD</span>
+        <span className="font-mono text-[7px] bg-cyan-50 border border-cyan-100 px-1.5 py-0.5 rounded text-cyan-700 font-bold tracking-widest">ARCHER</span>
+      </div>
+      <div className="grid grid-cols-2 gap-1.5">
+        <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-2 text-center">
+          <span className="font-mono text-[7px] text-emerald-700 font-bold tracking-widest">GPA</span>
+          <div className="font-hanken text-lg font-extrabold text-emerald-700">3.92</div>
+          <span className="font-mono text-[7px] text-emerald-600">TOP 5%</span>
+        </div>
+        <div className="bg-cyan-50 border border-cyan-200 rounded-lg p-2 text-center">
+          <span className="font-mono text-[7px] text-cyan-700 font-bold tracking-widest">ATTENDANCE</span>
+          <div className="font-hanken text-lg font-extrabold text-cyan-700">98%</div>
+          <span className="font-mono text-[7px] text-cyan-600">CONSISTENT</span>
+        </div>
+      </div>
+      <div className="bg-slate-50 border border-slate-100 rounded-lg p-2.5">
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-1.5">
+            <Wallet className="w-3 h-3 text-[#001456]" />
+            <span className="font-mono text-[7px] tracking-widest opacity-70 font-bold">FINANCE</span>
+          </div>
+          <span className="font-mono text-[7px] text-rose-700 bg-rose-50 border border-rose-200 px-1 py-0.5 rounded font-bold tracking-widest">DUE OCT 15</span>
+        </div>
+        <div className="flex items-baseline justify-between">
+          <span className="font-hanken text-sm font-extrabold">$850.00</span>
+          <span className="font-mono text-[8px] opacity-60">balance · $2,450</span>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const SLIDES: Slide[] = [
   {
-    eyebrow: "WELCOME",
-    title: "Nova International Technology College",
-    body: "A student-centred learning portal — built around how students actually learn.",
-    icon: <Sparkles className="w-6 h-6" />,
+    step: "01 / 04",
+    title: "Dashboard",
+    body: "Your home screen. Curriculum, support and what to do next — all on one page.",
+    icon: <LayoutGrid className="w-5 h-5" />,
     accent: "text-cyan-300",
+    mockup: <DashboardMockup />,
   },
   {
-    eyebrow: "LEARN",
-    title: "Your courses, end-to-end",
-    body: "Lessons, materials, assignments, quizzes and discussion — all in one place.",
-    icon: <Rocket className="w-6 h-6" />,
+    step: "02 / 04",
+    title: "Courses (LMS)",
+    body: "Every course end-to-end — lessons, materials, assignments, quizzes, discussion.",
+    icon: <Rocket className="w-5 h-5" />,
     accent: "text-emerald-300",
+    mockup: <CoursesMockup />,
   },
   {
-    eyebrow: "STRUCTURE",
-    title: "Built around 4-4-2",
-    body: "Theory 40%, Competency 40%, Practical 20%. Every subject mapped to a real outcome.",
-    icon: <Layers className="w-6 h-6" />,
+    step: "03 / 04",
+    title: "Progress",
+    body: "Track GPA and your 4-4-2 balance across Theory, Competency and Practical.",
+    icon: <TrendingUp className="w-5 h-5" />,
     accent: "text-amber-300",
+    mockup: <ProgressMockup />,
   },
   {
-    eyebrow: "SUPPORT",
-    title: "Five pillars of student support",
-    body: "Academic, Technology, Well-Being, Family & Community, Career — together, end to end.",
-    icon: <HeartHandshake className="w-6 h-6" />,
+    step: "04 / 04",
+    title: "Parents",
+    body: "Guardians follow grades, attendance and fees — and message teachers directly.",
+    icon: <Users className="w-5 h-5" />,
     accent: "text-rose-300",
+    mockup: <ParentMockup />,
   },
 ];
-
-const SLIDE_MS = 2600;
-const STORAGE_KEY = "nitc_intro_seen_v1";
 
 export default function IntroOverlay({ onFinish }: IntroOverlayProps) {
   const [index, setIndex] = useState(0);
@@ -83,7 +244,6 @@ export default function IntroOverlay({ onFinish }: IntroOverlayProps) {
     } catch {
       /* sessionStorage might be unavailable; safe to ignore */
     }
-    // Give the exit animation time to play.
     setTimeout(() => onFinish(), 420);
   };
 
@@ -101,11 +261,9 @@ export default function IntroOverlay({ onFinish }: IntroOverlayProps) {
           transition={{ duration: 0.4 }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04081a] overflow-hidden select-none"
         >
-          {/* Decorative animated grid */}
           <CyberGridBackground theme="dark" />
           <div className="absolute inset-0 bg-gradient-to-br from-[#04081a] via-[#06122f]/95 to-[#001456]/90 pointer-events-none" />
 
-          {/* Floating brand glow */}
           <motion.div
             initial={{ scale: 0.9, opacity: 0.5 }}
             animate={{ scale: [0.9, 1.05, 0.9], opacity: [0.4, 0.8, 0.4] }}
@@ -133,8 +291,8 @@ export default function IntroOverlay({ onFinish }: IntroOverlayProps) {
             <span className="font-mono text-[9px] text-amber-300 bg-amber-300/15 border border-amber-300/30 px-2 py-0.5 rounded font-bold tracking-widest uppercase">BETA</span>
           </div>
 
-          {/* Slide content */}
-          <div className="relative z-10 max-w-2xl w-full px-6 text-center">
+          {/* Slide content: mockup + caption */}
+          <div className="relative z-10 max-w-3xl w-full px-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
@@ -142,19 +300,33 @@ export default function IntroOverlay({ onFinish }: IntroOverlayProps) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -16, scale: 0.98 }}
                 transition={{ duration: 0.5 }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center"
               >
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/8 border border-white/15 ${slide.accent} mb-6`}>
-                  {slide.icon}
+                {/* Mockup */}
+                <div className="order-2 sm:order-1">
+                  {slide.mockup}
                 </div>
-                <span className="block font-mono text-[10px] text-cyan-300 font-bold tracking-[0.3em] uppercase mb-3">
-                  {slide.eyebrow}
-                </span>
-                <h2 className="font-hanken text-3xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                  {slide.title}
-                </h2>
-                <p className="font-sans text-sm sm:text-base text-white/75 leading-relaxed mt-4 max-w-xl mx-auto">
-                  {slide.body}
-                </p>
+                {/* Caption */}
+                <div className="order-1 sm:order-2 text-center sm:text-left">
+                  <div className="flex items-center justify-center sm:justify-start gap-2 mb-3">
+                    <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/8 border border-white/15 ${slide.accent}`}>
+                      {slide.icon}
+                    </div>
+                    <span className="font-mono text-[10px] text-cyan-300 font-bold tracking-[0.3em] uppercase">
+                      {slide.step}
+                    </span>
+                  </div>
+                  <h2 className="font-hanken text-3xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight">
+                    {slide.title}
+                  </h2>
+                  <p className="font-sans text-sm sm:text-base text-white/75 leading-relaxed mt-3 max-w-md mx-auto sm:mx-0">
+                    {slide.body}
+                  </p>
+                  <div className="flex items-center justify-center sm:justify-start gap-1.5 mt-4 font-mono text-[10px] text-cyan-300 tracking-widest">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>Live demo · explore after intro</span>
+                  </div>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

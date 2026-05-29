@@ -13,6 +13,7 @@ import ParentScreen from "./components/ParentScreen";
 import ContactFacultyModal from "./components/ContactFacultyModal";
 import InfoModal, { InfoView } from "./components/InfoModal";
 import SupportCentre, { SupportCategory, SupportAction } from "./components/SupportCentre";
+import IntroOverlay, { shouldShowIntro } from "./components/IntroOverlay";
 import Navbar from "./components/Navbar";
 import FooterNav from "./components/FooterNav";
 
@@ -27,6 +28,7 @@ export default function App() {
   const [infoView, setInfoView] = useState<InfoView | null>(null);
   const [supportOpen, setSupportOpen] = useState<SupportCategory | null>(null);
   const [pendingCourseId, setPendingCourseId] = useState<string | null>(null);
+  const [introVisible, setIntroVisible] = useState<boolean>(() => shouldShowIntro());
 
   const handleSetMode = (mode: PortalMode) => {
     setCurrentMode(mode);
@@ -50,6 +52,10 @@ export default function App() {
 
   return (
     <div id="app-root-container" className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
+
+      {introVisible && (
+        <IntroOverlay onFinish={() => setIntroVisible(false)} />
+      )}
 
       {/* Top Banner Navigation */}
       <Navbar
